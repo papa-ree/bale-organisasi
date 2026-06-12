@@ -1,0 +1,29 @@
+{
+    "name": "bale/bale-organisasi",
+    "description": "Bale Landing Page \u2014 Bale Organisasi",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ricky Romdhoni",
+            "email": "ricky.romdhoni@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "bale/umpak": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bale\\BaleOrganisasi\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bale\\BaleOrganisasi\\BaleOrganisasiServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
