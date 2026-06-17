@@ -45,8 +45,7 @@
                                         $childAnchor = str_contains($child->resolvedUrl, '#');
                                         $childNavigate = $childInternal && !$childAnchor;
                                     @endphp
-                                    <a href="{{ $child->resolvedUrl }}"
-                                        @if($childNavigate) wire:navigate.hover @endif
+                                    <a href="{{ $child->resolvedUrl }}" @if($childNavigate) wire:navigate.hover @endif
                                         class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-500/10 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
                                         {{ $child->name }}
                                     </a>
@@ -54,9 +53,7 @@
                             </div>
                         </div>
                     @else
-                        <a href="{{ $item->resolvedUrl }}"
-                            @if($useNavigate) wire:navigate.hover @endif
-                            @class([
+                        <a href="{{ $item->resolvedUrl }}" @if($useNavigate) wire:navigate.hover @endif @class([
                             'text-sm transition-colors duration-200',
                             'font-semibold text-teal-600 dark:text-teal-400' => request()->url() == $item->resolvedUrl || (request()->is('/') && $item->slug == 'beranda'),
                             'font-medium text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400' => request()->url() != $item->resolvedUrl,
@@ -67,9 +64,8 @@
                 @endforeach
 
                 {{-- Dark Mode Toggle --}}
-                <button type="button"
-                    class="hs-dark-mode-active:hidden block hs-dark-mode dark-toggle w-10 h-10 rounded-xl bg-slate-100/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-slate-700 transition-all duration-300"
-                    data-hs-theme-click-value="dark">
+                <button type="button" @click="setTheme('dark')" x-show="!isDark"
+                    class="cursor-pointer w-10 h-10 rounded-xl bg-slate-100/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-slate-700 transition-all duration-300">
                     <span class="group inline-flex shrink-0 justify-center items-center size-9">
                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -78,9 +74,8 @@
                         </svg>
                     </span>
                 </button>
-                <button type="button"
-                    class="hs-dark-mode-active:block hidden hs-dark-mode dark-toggle w-10 h-10 rounded-xl bg-slate-100/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-slate-700 transition-all duration-300"
-                    data-hs-theme-click-value="light">
+                <button type="button" @click="setTheme('light')" x-show="isDark" x-cloak
+                    class="cursor-pointer w-10 h-10 rounded-xl bg-slate-100/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-slate-700 transition-all duration-300">
                     <span class="group inline-flex shrink-0 justify-center items-center size-9">
                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -109,8 +104,8 @@
                 <button @click="toggleTheme()"
                     class="dark-toggle w-10 h-10 rounded-xl bg-slate-100/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-600 dark:text-slate-300"
                     aria-label="Toggle dark mode">
-                    <x-umpak::icon name="moon" class="w-4 h-4 block dark:hidden" />
-                    <x-umpak::icon name="sun" class="w-4 h-4 hidden dark:block" />
+                    <x-umpak::icon name="moon" class="w-4 h-4" x-show="!isDark" />
+                    <x-umpak::icon name="sun" class="w-4 h-4" x-show="isDark" x-cloak />
                 </button>
                 <button @click="toggleMobile()" aria-label="Toggle menu"
                     class="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
@@ -141,17 +136,14 @@
                                 $childAnchor = str_contains($child->resolvedUrl, '#');
                                 $childNavigate = $childInternal && !$childAnchor;
                             @endphp
-                            <a href="{{ $child->resolvedUrl }}"
-                                @if($childNavigate) wire:navigate.hover @endif
+                            <a href="{{ $child->resolvedUrl }}" @if($childNavigate) wire:navigate.hover @endif
                                 class="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl">
                                 {{ $child->name }}
                             </a>
                         @endforeach
                     </div>
                 @else
-                    <a href="{{ $item->resolvedUrl }}"
-                        @if($useNavigate) wire:navigate.hover @endif
-                        @class([
+                    <a href="{{ $item->resolvedUrl }}" @if($useNavigate) wire:navigate.hover @endif @class([
                         'block px-4 py-2.5 text-sm rounded-xl transition-all',
                         'font-semibold text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20' => request()->url() == $item->resolvedUrl,
                         'font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' => request()->url() != $item->resolvedUrl,
