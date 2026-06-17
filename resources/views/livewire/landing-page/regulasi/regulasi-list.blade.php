@@ -50,7 +50,7 @@
     x-cloak class="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
 
     {{-- Header --}}
-    <div class="relative overflow-hidden bg-gradient-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985]">
+    <div class="relative overflow-hidden bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985]">
         <div class="absolute inset-0 opacity-[0.06]"
             style="background-image:url('data:image/svg+xml,%3Csvg width=52 height=52 viewBox=\'0 0 52 52\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M10 10h32v32H10z\' fill=\'none\' stroke=\'%23fff\' stroke-width=\'1\'/%3E%3Ccircle cx=\'26\' cy=\'26\' r=\'6\' fill=\'none\' stroke=\'%23fff\' stroke-width=\'1\'/%3E%3C/svg%3E')">
         </div>
@@ -78,7 +78,7 @@
         <div class="flex flex-col lg:flex-row gap-8 items-start">
 
             {{-- Sidebar --}}
-            <aside class="w-full lg:w-72 flex-shrink-0 lg:sticky lg:top-24">
+            <aside class="w-full lg:w-72 shrink-0 lg:sticky lg:top-24">
                 <div
                     class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
                     <div class="p-5 border-b border-slate-100 dark:border-slate-800">
@@ -168,7 +168,7 @@
 
                             {{-- Clickable Area (Header) --}}
                             <div class="p-6 cursor-pointer flex items-start gap-5" @click="toggle(doc.id)">
-                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-[10px] font-black flex-shrink-0 transition-transform group-hover:scale-105"
+                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-[10px] font-black shrink-0 transition-transform group-hover:scale-105"
                                     :class="['pdf','docx'].includes(doc.fmt) ? 'bg-rose-50 text-rose-600' : (doc.fmt === 'xlsx' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-600')"
                                     x-text="doc.fmt.toUpperCase()">
                                 </div>
@@ -245,48 +245,4 @@
             </main>
         </div>
     </div>
-
-    {{-- Detail Modal --}}
-    {{-- <div x-show="selectedDoc" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" @click="selectedDoc = null"></div>
-        <div class="relative bg-white dark:bg-slate-900 w-full max-w-2xl rounded-2xl shadow-2xl p-8 sm:p-12"
-            x-show="selectedDoc" x-transition>
-            <button @click="selectedDoc = null"
-                class="absolute right-6 top-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500"><x-umpak::icon
-                    name="x" class="w-5 h-5" /></button>
-            <div class="flex items-start gap-6 mb-10">
-                <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-xs font-black bg-teal-50 text-teal-600"
-                    x-text="selectedDoc?.fmt.toUpperCase()"></div>
-                <div class="min-w-0 pt-1">
-                    <p class="text-[10px] font-black text-teal-600 uppercase tracking-widest mb-1"
-                        x-text="selectedDoc?.cat"></p>
-                    <h2 class="text-xl font-black text-slate-900 dark:text-white leading-tight"
-                        x-text="selectedDoc?.title"></h2>
-                </div>
-            </div>
-            <div class="grid grid-cols-3 gap-4 mb-10">
-                <div class="bg-slate-50 p-4 rounded-2xl text-center">
-                    <p class="text-[10px] uppercase mb-1">Tahun</p>
-                    <p class="text-sm font-black" x-text="selectedDoc?.tahun"></p>
-                </div>
-                <div class="bg-slate-50 p-4 rounded-2xl text-center">
-                    <p class="text-[10px] uppercase mb-1">Ukuran</p>
-                    <p class="text-sm font-black" x-text="selectedDoc?.size"></p>
-                </div>
-                <div class="bg-slate-50 p-4 rounded-2xl text-center">
-                    <p class="text-[10px] uppercase mb-1">Format</p>
-                    <p class="text-sm font-black" x-text="selectedDoc?.fmt.toUpperCase()"></p>
-                </div>
-            </div>
-            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-10" x-text="selectedDoc?.desc"></p>
-            <div class="flex flex-col sm:flex-row gap-4">
-                <a :href="selectedDoc?.url" target="_blank"
-                    class="flex-1 px-8 py-4 rounded-2xl bg-teal-600 text-white font-black text-sm shadow-xl flex items-center justify-center gap-3"><x-umpak::icon
-                        name="download" class="w-5 h-5" /> Unduh Dokumen</a>
-                <button @click="navigator.clipboard.writeText(selectedDoc?.url); alert('Tautan disalin!')"
-                    class="px-8 py-4 rounded-2xl bg-slate-50 text-slate-600 font-black text-sm flex items-center justify-center gap-3"><x-umpak::icon
-                        name="link" class="w-4 h-4" /> Salin Tautan</button>
-            </div>
-        </div>
-    </div> --}}
 </div>

@@ -124,7 +124,7 @@
         @else
 
             {{-- ══ HERO HEADER ══ --}}
-            <div class="relative overflow-hidden bg-linear-to-br from-teal-700 via-teal-600 to-sky-500">
+            <div class="relative overflow-hidden bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985]">
                 <div class="absolute inset-0 opacity-10">
                     <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                         <defs>
@@ -432,7 +432,7 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="{{ $bc }} text-[10px] px-2.5 py-1 rounded-full">{{ $bl }}</span>
+                                            <div class="px-3 py-1 bg-brand-teal text-white text-[10px] font-black rounded-lg">{{ $bl }}</div>
                                         </td>
                                         <td class="text-right">
                                             @if($delta !== null)
@@ -524,7 +524,7 @@
                     <div
                         class="p-4 bg-(--bg-elevated) border-t border-(--border) flex gap-5 overflow-x-auto whitespace-nowrap">
                         <div class="flex items-center gap-1.5 text-[10px] font-bold text-(--text-muted)">
-                            <div class="w-2 h-2 rounded-full bg-[#0d9488]"></div> SANGAT BAIK
+                            <div class="w-2 h-2 rounded-full bg-brand-teal"></div> SANGAT BAIK
                         </div>
                         <div class="flex items-center gap-1.5 text-[10px] font-bold text-(--text-muted)">
                             <div class="w-2 h-2 rounded-full bg-[#3b82f6]"></div> BAIK

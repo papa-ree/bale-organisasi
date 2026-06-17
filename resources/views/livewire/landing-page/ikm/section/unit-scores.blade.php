@@ -17,7 +17,7 @@
             <div class="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
                 <div @class([
                     'h-full rounded-full transition-all duration-1000',
-                    'bg-linear-to-r from-teal-500 to-sky-400 shadow-sm' => $opd->nilai_ikm >= 80,
+                    'bg-linear-to-r from-[#0c3a47] via-[#0d6b7a] to-[#075985] shadow-sm' => $opd->nilai_ikm >= 80,
                     'bg-linear-to-r from-amber-400 to-amber-500' => $opd->nilai_ikm < 80,
                 ]) style="width: {{ $opd->nilai_ikm }}%"></div>
             </div>

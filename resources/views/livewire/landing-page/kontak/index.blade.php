@@ -1,7 +1,7 @@
 @if($section)
     <section id="cta-kontak" @class([
         'py-20 relative overflow-hidden',
-        'bg-linear-to-r from-teal-600 to-sky-500 dark:from-teal-800 dark:to-sky-700' => $section->meta('custom.background_style') === 'gradient',
+        'bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985]' => $section->meta('custom.background_style') === 'gradient',
         'bg-slate-900' => $section->meta('custom.background_style') === 'image',
     ])>
         {{-- Background Image Overlay (jika tipe image) --}}

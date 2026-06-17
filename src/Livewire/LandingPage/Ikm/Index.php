@@ -7,6 +7,22 @@ use Illuminate\Support\Facades\DB;
 
 class Index extends UmpakComponent
 {
+
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <section id="ikm-placeholder" class="py-20 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="h-8 w-48 bg-slate-200 dark:bg-slate-700 rounded-lg mx-auto mb-12 animate-pulse"></div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1 h-64 bg-white dark:bg-slate-800 rounded-3xl animate-pulse"></div>
+                    <div class="lg:col-span-2 h-64 bg-white dark:bg-slate-800 rounded-3xl animate-pulse"></div>
+                </div>
+            </div>
+        </section>
+        HTML;
+    }
+
     public function render()
     {
         $section = $this->section('ikm');

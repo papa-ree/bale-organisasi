@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
     {{-- Header Section --}}
-    <div class="relative overflow-hidden bg-linear-to-br from-teal-700 via-teal-600 to-sky-500">
+    <div class="relative overflow-hidden bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985]">
         {{-- Pattern overlay --}}
         <div class="absolute inset-0 opacity-10">
             <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">

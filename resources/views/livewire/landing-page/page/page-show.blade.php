@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
 
     {{-- Page Header --}}
-    <div class="bg-linear-to-br from-teal-700 via-teal-600 to-sky-500 pt-12 pb-24 relative overflow-hidden">
+    <div class="bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985] pt-12 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 <defs><pattern id="grid-page" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" /></pattern></defs>

@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
 
     {{-- Page Header --}}
-    <div class="bg-linear-to-br from-teal-700 via-teal-600 to-sky-500 py-16 relative overflow-hidden">
+    <div class="bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985] py-16 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 <defs>

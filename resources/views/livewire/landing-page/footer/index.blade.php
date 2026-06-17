@@ -13,9 +13,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
 
             {{-- Grid 1: Brand (Hero Data) & Social --}}
-            <div data-aos="fade-up">
+            <div >
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-12 h-12 rounded-2xl bg-linear-to-br from-teal-500 to-sky-400 flex items-center justify-center text-white font-black text-lg shadow-lg">
+                    <div class="w-12 h-12 rounded-2xl bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985] flex items-center justify-center text-white font-black text-lg shadow-lg">
                         BO
                     </div>
                     <span class="font-bold text-white text-base leading-tight">
@@ -63,7 +63,7 @@
             </div>
 
             {{-- Grid 2: Quick Links --}}
-            <div data-aos="fade-up" data-aos-delay="100">
+            <div>
                 <h4 class="font-bold text-white mb-6 text-sm uppercase tracking-widest border-l-4 border-teal-500 pl-3">Navigasi Cepat</h4>
                 <ul class="space-y-3">
                     @foreach($quickLinks as $link)
@@ -77,12 +77,12 @@
             </div>
 
             {{-- Grid 3: Contact Details --}}
-            <div data-aos="fade-up" data-aos-delay="200">
+            <div  >
                 <h4 class="font-bold text-white mb-6 text-sm uppercase tracking-widest border-l-4 border-teal-500 pl-3">Informasi Kontak</h4>
                 <ul class="space-y-5 text-sm text-slate-400">
                     @foreach($contacts as $contact)
                         <li class="flex items-start gap-4 group">
-                            <div class="w-9 h-9 rounded-xl bg-slate-700 group-hover:bg-teal-600 group-hover:text-white flex items-center justify-center flex-shrink-0 text-teal-400 transition-colors shadow-lg shadow-black/10">
+                            <div class="w-9 h-9 rounded-xl bg-slate-700 group-hover:bg-teal-600 group-hover:text-white flex items-center justify-center shrink-0 text-teal-400 transition-colors shadow-lg shadow-black/10">
                                 <x-umpak::icon :name="$contact['icon'][0] ?? 'info'" class="w-4 h-4" />
                             </div>
                             <span class="leading-relaxed pt-1">{{ $contact['value'][0] ?? '' }}</span>
@@ -92,7 +92,7 @@
             </div>
 
             {{-- Grid 4: Institutional Slider Images --}}
-            <div data-aos="fade-up" data-aos-delay="300">
+            <div  >
                 {{-- <h4 class="font-bold text-white mb-6 text-sm uppercase tracking-widest border-l-4 border-teal-500 pl-3">Atribut Instansi</h4> --}}
                 <div @class([
                     'grid gap-4',

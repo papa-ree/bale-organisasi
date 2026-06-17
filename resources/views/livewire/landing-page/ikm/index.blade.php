@@ -44,15 +44,15 @@
                     </div>
 
                     <div class="space-y-4" x-data="{ 
-                                    allData: {{ $allScoresJson }},
-                                    visibleData: [],
-                                    shuffle() {
-                                        // Ambil 5 data acak
-                                        this.visibleData = this.allData
-                                            .sort(() => 0.5 - Math.random())
-                                            .slice(0, 5);
-                                    }
-                                }" x-init="shuffle(); setInterval(() => shuffle(), 8000)">
+                                            allData: {{ $allScoresJson }},
+                                            visibleData: [],
+                                            shuffle() {
+                                                // Ambil 5 data acak
+                                                this.visibleData = this.allData
+                                                    .sort(() => 0.5 - Math.random())
+                                                    .slice(0, 5);
+                                            }
+                                        }" x-init="shuffle(); setInterval(() => shuffle(), 8000)">
 
                         <p
                             class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex justify-between items-center">
