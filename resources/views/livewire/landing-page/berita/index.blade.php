@@ -42,7 +42,7 @@
                             {{-- Thumbnail --}}
                             <div class="relative overflow-hidden aspect-video bg-slate-100 dark:bg-slate-700">
                                 @if($post->hasThumbnail())
-                                    <img src="{{ $post->thumbnail }}" alt="{{ $post->title }}"
+                                    <img src="{{ cdn_asset('thumbnails/' . $post->thumbnail) }}" alt="{{ $post->title }}"
                                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                 @else
                                     <div class="w-full h-full flex items-center justify-center opacity-30">
@@ -73,7 +73,7 @@
                                     </p>
                                 @endif
                                 <div
-                                    class="mt-auto flex items-center justify-between pt-5 border-t border-slate-50 dark:border-slate-700/50">
+                                    class="mt-auto flex items-center justify-between pt-5 border-t border-slate-100 dark:border-slate-700/50">
                                     <div class="flex items-center gap-2">
                                         <x-umpak::icon name="calendar" class="w-3.5 h-3.5 text-slate-400" />
                                         <span class="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase">

@@ -38,47 +38,36 @@
         return Math.ceil(this.filteredDocuments.length / this.perPage);
     },
 
-    {{-- openModal(doc) {
-        this.selectedDoc = doc;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } --}}
-
      toggle(id) {
         this.expandedId = (this.expandedId === id) ? null : id;
     }
 }" x-init="$watch('search', () => page = 1); $watch('category', () => page = 1); $watch('format', () => page = 1); $watch('year', () => page = 1);"
     x-cloak class="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
 
-    {{-- Header --}}
-    <div class="relative overflow-hidden bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985]">
-        <div class="absolute inset-0 opacity-[0.06]"
-            style="background-image:url('data:image/svg+xml,%3Csvg width=52 height=52 viewBox=\'0 0 52 52\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M10 10h32v32H10z\' fill=\'none\' stroke=\'%23fff\' stroke-width=\'1\'/%3E%3Ccircle cx=\'26\' cy=\'26\' r=\'6\' fill=\'none\' stroke=\'%23fff\' stroke-width=\'1\'/%3E%3C/svg%3E')">
-        </div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-                <div class="max-w-2xl">
-                    <p class="text-xs font-bold tracking-widest uppercase text-teal-300 mb-3">Repositori Publik</p>
-                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">Dokumen &
-                        Regulasi</h1>
-                    <p class="text-sm sm:text-base text-white/70 leading-relaxed">Akses repositori dokumen resmi Bagian
-                        Organisasi Setda Kab. Ponorogo secara instan.</p>
-                </div>
-                <div class="flex gap-4">
-                    <div
-                        class="flex-1 lg:flex-none min-w-[120px] rounded-2xl px-6 py-4 text-center bg-white/10 backdrop-blur-md border border-white/20">
-                        <p class="text-3xl font-black text-white" x-text="filteredDocuments.length"></p>
-                        <p class="text-xs text-white/50 font-bold mt-1 uppercase">Hasil Temuan</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
         <div class="flex flex-col lg:flex-row gap-8 items-start">
 
             {{-- Sidebar --}}
-            <aside class="w-full lg:w-72 shrink-0 lg:sticky lg:top-24">
+            <aside class="w-full lg:w-72 shrink-0 lg:sticky lg:top-24 space-y-5">
+                {{-- Side Header --}}
+                <div class="relative overflow-hidden bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985] rounded-2xl shadow-lg border border-white/10">
+                    <div class="absolute inset-0 opacity-[0.08]"
+                        style="background-image:url('data:image/svg+xml,%3Csvg width=32 height=32 viewBox=\'0 0 32 32\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h32v32H0z\' fill=\'none\' stroke=\'%23fff\' stroke-width=\'0.5\'/%3E%3C/svg%3E')">
+                    </div>
+                    <div class="relative p-6">
+                        <p class="text-[10px] font-bold tracking-widest uppercase text-teal-300 mb-2">Repositori Publik</p>
+                        <h1 class="text-xl font-black text-white mb-3 leading-tight">Dokumen & Regulasi</h1>
+                        <p class="text-xs text-white/70 leading-relaxed mb-6">Akses dokumen resmi Bagian Organisasi.</p>
+                        
+                        <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3">
+                            <span class="text-2xl font-black text-white" x-text="filteredDocuments.length"></span>
+                            <span class="text-[9px] text-white/50 font-bold uppercase leading-tight">Dokumen<br/>Ditemukan</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div
                     class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
                     <div class="p-5 border-b border-slate-100 dark:border-slate-800">
@@ -86,14 +75,14 @@
                     </div>
                     <nav class="p-3 space-y-1">
                         <button @click="category = 'all'"
-                            :class="category === 'all' ? 'bg-teal-50 text-teal-600' : 'text-slate-600'"
-                            class="w-full text-left px-4 py-3 rounded-2xl flex items-center gap-3 transition-all hover:bg-slate-50">
+                            :class="category === 'all' ? 'bg-teal-50 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'"
+                            class="w-full text-left px-4 py-3 rounded-2xl flex items-center gap-3 transition-all">
                             <span class="text-lg">📂</span><span class="font-bold text-sm">Semua</span>
                         </button>
                         @foreach($categories as $cat)
                             <button @click="category = '{{ $cat['id'] }}'"
-                                :class="category === '{{ $cat['id'] }}' ? 'bg-teal-50 text-teal-600' : 'text-slate-600'"
-                                class="w-full text-left px-4 py-3 rounded-2xl flex items-center gap-3 transition-all hover:bg-slate-50">
+                                :class="category === '{{ $cat['id'] }}' ? 'bg-teal-50 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'"
+                                class="w-full text-left px-4 py-3 rounded-2xl flex items-center gap-3 transition-all">
                                 <span class="text-lg">{{ $cat['icon'] }}</span><span
                                     class="font-bold text-sm flex-1">{{ $cat['label'] }}</span>
                             </button>
@@ -109,12 +98,12 @@
                     <div class="flex flex-col md:flex-row gap-4 mb-4">
                         <div class="relative flex-1">
                             <x-umpak::icon name="search"
-                                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-slate-500" />
                             <input x-model="search" type="search" placeholder="Cari judul..."
-                                class="w-full pl-12 pr-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border-transparent text-sm font-medium focus:ring-2 focus:ring-teal-500">
+                                class="w-full pl-12 pr-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border-transparent text-sm font-medium focus:ring-2 focus:ring-teal-500 dark:text-white placeholder:text-slate-500">
                         </div>
                         <select x-model="year"
-                            class="md:w-48 pl-4 pr-10 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border-transparent text-sm font-bold appearance-none">
+                            class="md:w-48 pl-4 pr-10 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border-transparent text-sm font-bold appearance-none dark:text-white">
                             <option value="all">Semua Tahun</option>
                             @foreach($years as $y) <option value="{{ $y }}">{{ $y }}</option> @endforeach
                         </select>
@@ -122,7 +111,7 @@
                     <div class="flex flex-wrap items-center gap-2">
                         <template x-for="f in ['pdf', 'xlsx', 'docx', 'pptx', 'zip']">
                             <button @click="format = (format === f ? 'all' : f)"
-                                :class="format === f ? 'bg-teal-600 text-white' : 'bg-slate-100 text-slate-500'"
+                                :class="format === f ? 'bg-teal-600 text-white shadow-lg shadow-teal-600/20' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'"
                                 class="px-4 py-1.5 rounded-full text-xs font-bold transition-all"
                                 x-text="f.toUpperCase()"></button>
                         </template>
@@ -169,7 +158,7 @@
                             {{-- Clickable Area (Header) --}}
                             <div class="p-6 cursor-pointer flex items-start gap-5" @click="toggle(doc.id)">
                                 <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-[10px] font-black shrink-0 transition-transform group-hover:scale-105"
-                                    :class="['pdf','docx'].includes(doc.fmt) ? 'bg-rose-50 text-rose-600' : (doc.fmt === 'xlsx' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-600')"
+                                    :class="['pdf','docx'].includes(doc.fmt) ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/30 dark:text-rose-400' : (doc.fmt === 'xlsx' ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400')"
                                     x-text="doc.fmt.toUpperCase()">
                                 </div>
                                 <div class="flex-1 min-w-0">
@@ -210,7 +199,7 @@
                                             Unduh Dokumen (<span x-text="doc.fmt.toUpperCase()"></span>)
                                         </a>
                                         <button x-on:click="navigator.clipboard.writeText(doc.url)" type="button"
-                                            class="px-6 py-3.5 rounded-xl cursor-pointer bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 transition-all flex items-center justify-center gap-2">
+                                            class="px-6 py-3.5 rounded-xl cursor-pointer bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
                                             <x-umpak::icon name="link" class="w-4 h-4" />
                                             Salin Tautan
                                         </button>
@@ -224,21 +213,21 @@
                 {{-- Alpine Pagination Controls --}}
                 <div x-show="totalPages > 1" class="mt-10 flex items-center justify-center gap-2">
                     <button @click="page--" :disabled="page === 1"
-                        class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors">
+                        class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm">
                         <x-umpak::icon name="chevron-left" class="w-4 h-4" />
                     </button>
 
                     <div class="flex items-center gap-1">
                         <template x-for="p in totalPages" :key="p">
                             <button @click="page = p"
-                                :class="page === p ? 'bg-teal-600 text-white border-teal-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'"
+                                :class="page === p ? 'bg-teal-600 text-white border-teal-600 shadow-lg shadow-teal-600/20' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'"
                                 class="w-10 h-10 rounded-xl border font-bold text-sm transition-all"
                                 x-text="p"></button>
                         </template>
                     </div>
 
                     <button @click="page++" :disabled="page === totalPages"
-                        class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors">
+                        class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm">
                         <x-umpak::icon name="chevron-right" class="w-4 h-4" />
                     </button>
                 </div>

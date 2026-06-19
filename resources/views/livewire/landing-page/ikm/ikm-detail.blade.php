@@ -195,7 +195,7 @@
                             style="background:rgba(255,255,255,.1); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.15)">
                             <p class="text-xs font-semibold text-white/60 mb-1">Tren vs Sebelumnya</p>
                             <p class="text-base text-white tabular-nums"
-                                :class="tren === null ? '' : tren > 0.3 ? 'text-green-300' : tren < -0.3 ? 'text-red-300' : ''"
+                                :class="tren === null ? '' : tren > 0.3 ? 'text-emerald-300' : tren < -0.3 ? 'text-rose-300' : ''"
                                 x-text="tren === null ? 'N/A' : (tren > 0 ? '+' : '') + tren.toFixed(2)">
                                 {{ $tren !== null ? ($tren > 0 ? '+' : '') . $tren : 'N/A' }}
                             </p>
@@ -265,15 +265,13 @@
                         <div>
                             <p class="text-xs font-semibold uppercase tracking-wider mb-1 text-(--text-muted)">Perbandingan
                             </p>
-                            <h2 class="text-base text-(--text-primary)">vs Rata-rata Kabupaten</h2>
+                            <h2 class="text-base text-(--text-primary)">vs IKM Kabupaten</h2>
                         </div>
 
                         {{-- Gauge instansi — wire:ignore agar Alpine tidak direset Livewire --}}
                         <div wire:ignore>
                             <div class="flex justify-between text-xs mb-1.5 font-semibold">
-                                <span
-                                    class="truncate text-(--text-primary)">{{ explode(' ', trim($instansi->nama_opd))[0] }}
-                                    ini</span>
+                                <span class="truncate text-(--text-primary)">IKM Periode saat ini</span>
                                 <span class="text-(--teal-primary)" x-text="skor.toFixed(2)"></span>
                             </div>
                             <div class="h-3 rounded-full overflow-hidden bg-(--bg-elevated)">
@@ -286,7 +284,7 @@
                         {{-- Gauge rata-rata — reaktif via kabAvg (entangled dari $wire) --}}
                         <div>
                             <div class="flex justify-between text-xs mb-1.5 font-semibold">
-                                <span class="text-(--text-secondary)">Rata-rata Kab.</span>
+                                <span class="text-(--text-secondary)">IKM Kabupaten Ponorogo</span>
                                 <span class="text-(--text-secondary)" x-text="kabAvg.toFixed(2)"></span>
                             </div>
                             <div class="h-3 rounded-full overflow-hidden bg-(--bg-elevated)">
@@ -299,7 +297,7 @@
                         {{-- Delta — reaktif Alpine menggunakan kabAvg (entangled dari $wire) --}}
                         <div class="rounded-xl p-3 text-center bg-(--bg-elevated)">
                             <p class="text-2xl tabular-nums"
-                                :class="(skor - kabAvg) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'"
+                                :class="(skor - kabAvg) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'"
                                 x-text="((skor - kabAvg) >= 0 ? '+' : '') + (skor - kabAvg).toFixed(2)">
                             </p>
                             <p class="text-xs mt-1 text-(--text-secondary)"
@@ -311,7 +309,7 @@
                         <div class="rounded-xl p-3 text-center bg-(--teal-light)">
                             <p class="text-xs font-semibold mb-1 text-(--text-secondary)">Peringkat</p>
                             <p class="text-2xl text-(--teal-primary)" x-text="'#' + kabRank"></p>
-                            <p class="text-xs text-(--text-muted)" x-text="`dari ${kabTotal} instansi`"></p>
+                            <p class="text-xs text-(--text-muted)" x-text="`dari ${kabTotal} OPP`"></p>
                         </div>
                     </div>
                 </div>
@@ -321,7 +319,7 @@
                     <div class="flex items-center justify-between mb-5 flex-wrap gap-2">
                         <div>
                             <p class="text-xs font-semibold uppercase tracking-wider mb-1 text-(--text-muted)">Breakdown</p>
-                            <h2 class=text-base text-(--text-primary)">Nilai per Unsur Layanan (9 Unsur)</h2>
+                            <h2 class="text-base text-(--text-primary)">Nilai per Unsur Layanan (9 Unsur)</h2>
                         </div>
                         <span
                             class="text-xs font-semibold px-2.5 py-1 rounded-full bg-(--bg-elevated) text-(--text-secondary)">
@@ -342,17 +340,21 @@
                                     </div>
                                     <span
                                         :class="{
-                                                                                                                                                                                            'badge-sb': u.nilai >= 3.5324,
-                                                                                                                                                                                            'badge-b': u.nilai >= 3.0644 && u.nilai < 3.5324,
-                                                                                                                                                                                            'badge-c': u.nilai >= 2.60 && u.nilai < 3.0644,
-                                                                                                                                                                                            'badge-kb': u.nilai < 2.60
-                                                                                                                                                                                        }"
+                                                                                                                                                                                                                        'badge-sb': u.nilai >= 3.5324,
+                                                                                                                                                                                                                        'badge-b': u.nilai >= 3.0644 && u.nilai < 3.5324,
+                                                                                                                                                                                                                        'badge-c': u.nilai >= 2.60 && u.nilai < 3.0644,
+                                                                                                                                                                                                                        'badge-kb': u.nilai < 2.60
+                                                                                                                                                                                                                    }"
                                         class="text-[10px] px-2 py-0.5 rounded-full shrink-0"
                                         x-text="u.nilai.toFixed(2)"></span>
                                 </div>
                                 <div class="h-2 rounded-full overflow-hidden bg-(--bg-muted)">
-                                    <div class="h-full rounded-full transition-all duration-700"
-                                        :style="`width:${(u.nilai / 4) * 100}%; background:${u.nilai >= 3.5324 ? '#0d9488' : u.nilai >= 3.0644 ? '#3b82f6' : '#eab308'}`">
+                                    <div class="h-full rounded-full transition-all duration-700" :class="{
+                                                                        'bg-teal-500': u.nilai >= 3.5324,
+                                                                        'bg-blue-500': u.nilai >= 3.0644 && u.nilai < 3.5324,
+                                                                        'bg-amber-500': u.nilai >= 2.60 && u.nilai < 3.0644,
+                                                                        'bg-rose-500': u.nilai < 2.60
+                                                                    }" :style="`width:${(u.nilai / 4) * 100}%` ">
                                     </div>
                                 </div>
                             </div>
@@ -365,7 +367,7 @@
                     class="bg-(--bg-surface) border border-(--border) rounded-2xl shadow-(--shadow-sm) overflow-hidden mb-5">
                     <div class="p-5 sm:p-6 border-b border-(--border)">
                         <p class="text-xs font-semibold uppercase tracking-wider mb-1 text-(--text-muted)">Arsip Lengkap</p>
-                        <h2 class=text-base text-(--text-primary)">Riwayat Semua Periode</h2>
+                        <h2 class="text-base text-(--text-primary)">Riwayat Semua Periode</h2>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="ikm-table">
@@ -432,12 +434,14 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            <div class="px-3 py-1 bg-brand-teal text-white text-[10px] font-black rounded-lg">{{ $bl }}</div>
+                                            <div class="px-3 py-1 bg-brand-teal text-white text-[10px] font-black rounded-lg">
+                                                {{ $bl }}
+                                            </div>
                                         </td>
                                         <td class="text-right">
                                             @if($delta !== null)
                                                 <span
-                                                    class="text-sm tabular-nums {{ $delta > 0.3 ? 'text-emerald-600' : ($delta < -0.3 ? 'text-red-500' : 'text-(--text-muted)') }}">
+                                                    class="text-sm tabular-nums {{ $delta > 0.3 ? 'text-emerald-600 dark:text-emerald-400' : ($delta < -0.3 ? 'text-rose-600 dark:text-rose-400' : 'text-(--text-muted)') }}">
                                                     {{ $delta > 0.3 ? '↑ +' : ($delta < -0.3 ? '↓ ' : '') }}{{ $delta }}
                                                 </span>
                                             @else
@@ -509,8 +513,12 @@
                                                         x-text="d.unsur[idx-1]?.nilai.toFixed(2)">
                                                     </span>
                                                     {{-- Visual indicator (dot) --}}
-                                                    <div class="w-1.5 h-1.5 rounded-full"
-                                                        :style="`background: ${d.unsur[idx-1]?.nilai >= 3.5324 ? '#0d9488' : d.unsur[idx-1]?.nilai >= 3.0644 ? '#3b82f6' : '#eab308'}`">
+                                                    <div class="w-1.5 h-1.5 rounded-full" :class="{
+                                                                                        'bg-teal-500': d.unsur[idx-1]?.nilai >= 3.5324,
+                                                                                        'bg-blue-500': d.unsur[idx-1]?.nilai >= 3.0644 && d.unsur[idx-1]?.nilai < 3.5324,
+                                                                                        'bg-amber-500': d.unsur[idx-1]?.nilai >= 2.60 && d.unsur[idx-1]?.nilai < 3.0644,
+                                                                                        'bg-rose-500': d.unsur[idx-1]?.nilai < 2.60
+                                                                                    }">
                                                     </div>
                                                 </div>
                                             </td>
@@ -524,16 +532,16 @@
                     <div
                         class="p-4 bg-(--bg-elevated) border-t border-(--border) flex gap-5 overflow-x-auto whitespace-nowrap">
                         <div class="flex items-center gap-1.5 text-[10px] font-bold text-(--text-muted)">
-                            <div class="w-2 h-2 rounded-full bg-brand-teal"></div> SANGAT BAIK
+                            <div class="w-2 h-2 rounded-full bg-teal-500"></div> SANGAT BAIK
                         </div>
                         <div class="flex items-center gap-1.5 text-[10px] font-bold text-(--text-muted)">
-                            <div class="w-2 h-2 rounded-full bg-[#3b82f6]"></div> BAIK
+                            <div class="w-2 h-2 rounded-full bg-blue-500"></div> BAIK
                         </div>
                         <div class="flex items-center gap-1.5 text-[10px] font-bold text-(--text-muted)">
-                            <div class="w-2 h-2 rounded-full bg-[#eab308]"></div> CUKUP
+                            <div class="w-2 h-2 rounded-full bg-amber-500"></div> CUKUP
                         </div>
                         <div class="flex items-center gap-1.5 text-[10px] font-bold text-(--text-muted)">
-                            <div class="w-2 h-2 rounded-full bg-[#ef4444]"></div> KURANG
+                            <div class="w-2 h-2 rounded-full bg-rose-500"></div> KURANG
                         </div>
                     </div>
                 </div>

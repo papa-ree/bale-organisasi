@@ -11,11 +11,15 @@
                 </p>
             </div>
 
+            {{-- Infografis IKM Tahun Sebelumnya --}}
+            <livewire:bale-organisasi.landing-page.ikm.section.yearly-overview />
+
             <div class="grid lg:grid-cols-2 gap-8">
                 {{-- Left Column: Chart & Unit Scores --}}
                 <div data-aos="fade-up"
                     class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-6 border border-slate-100 dark:border-slate-700">
-                    <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-4 text-sm">Indeks Kepuasan Keseluruhan</h3>
+                    <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-4 text-sm">Indeks Kepuasan Masyarakat Kab.
+                        Ponorogo</h3>
 
                     <div class="flex items-center justify-center mb-8 relative">
                         @php
@@ -43,44 +47,38 @@
                         </div>
                     </div>
 
-                    <div class="space-y-4" x-data="{ 
-                                            allData: {{ $allScoresJson }},
-                                            visibleData: [],
-                                            shuffle() {
-                                                // Ambil 5 data acak
-                                                this.visibleData = this.allData
-                                                    .sort(() => 0.5 - Math.random())
-                                                    .slice(0, 5);
-                                            }
-                                        }" x-init="shuffle(); setInterval(() => shuffle(), 8000)">
+                    <div class="space-y-4"
+                        x-data="{ 
+                                                                                                                                                        allData: {{ $allScoresJson }},
+                                                                                                                                                        visibleData: [],
+                                                                                                                                                        shuffle() {
+                                                                                                                                                            if(!this.allData || this.allData.length === 0) return;
+                                                                                                                                                            this.visibleData = [...this.allData]
+                                                                                                                                                                .sort(() => 0.5 - Math.random())
+                                                                                                                                                                .slice(0, 5);
+                                                                                                                                                        }
+                                                                                                                                                    }"
+                        x-init="shuffle(); setInterval(() => shuffle(), 8000)">
 
                         <p
                             class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex justify-between items-center">
-                            <span>Skor per Unit Kerja</span>
-                            <span class="text-[9px] lowercase font-normal italic opacity-60">smart transition</span>
+                            <span>IKM Organisasi Pelayanan Publik</span>
+                            <span class="text-[12px] lowercase font-normal italic opacity-60">smart transition</span>
                         </p>
 
                         {{-- Kuncinya ada pada :key='index' agar elemen DOM tidak di-destroy --}}
                         <template x-for="(item, index) in visibleData" :key="index">
                             <div class="relative py-2">
-                                {{-- Pembungkus Teks dengan Transisi Fade --}}
-                                <div :key="item.name" {{-- Key unik memicu re-render elemen ini saja --}}
-                                    x-transition:enter="transition ease-out duration-500"
-                                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                                    x-transition:leave="transition ease-in duration-300"
-                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                    class="flex justify-between text-xs mb-1.5 pt-2">
+                                <div class="flex justify-between text-xs mb-1.5 pt-2">
+                                    <span class="text-slate-700 dark:text-slate-300 font-medium transition-all duration-500"
+                                        x-text="item.name"></span>
 
-                                    {{-- Nama Instansi --}}
-                                    <span class="text-slate-700 dark:text-slate-300 font-medium" x-text="item.name"></span>
-
-                                    {{-- Angka Skor --}}
-                                    <span class="font-bold tabular-nums"
+                                    <span class="font-bold tabular-nums transition-all duration-500"
                                         :class="item.score >= 80 ? 'text-teal-600 dark:text-teal-400' : 'text-amber-600'"
-                                        x-text="item.score.toFixed(1)"></span>
+                                        x-text="parseFloat(item.score).toFixed(1)"></span>
                                 </div>
 
-                                {{-- Garis Progress: Tetap stabil dan sliding --}}
+                                {{-- Garis Progress: Tetap stabil dan sliding karena reuse DOM node --}}
                                 <div class="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden shadow-inner">
                                     <div class="h-full rounded-full transition-all duration-1000 ease-in-out shadow-sm"
                                         :class="item.score >= 80 ? 'bg-linear-to-r from-teal-500 to-sky-400 shadow-teal-500/20' : 'bg-linear-to-r from-amber-400 to-amber-500 shadow-amber-500/20'"
@@ -101,10 +99,13 @@
                             </div>
                         </div>
                         <div
-                            class="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm border border-slate-100 dark:border-slate-700 text-center">
-                            <div class="text-xs font-black text-teal-600 dark:text-teal-400 leading-tight">{{ $period }}
-                            </div>
-                            <div class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase mt-1">Periode
+                            class="justify-center items-center flex flex-col bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm border border-slate-100 dark:border-slate-700 ">
+                            <div class="text-center space-y-1">
+                                <div class="font-semibold text-teal-600 dark:text-teal-400 leading-tight">
+                                    {{ $period }}
+                                </div>
+                                <div class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase mt-1">Periode
+                                </div>
                             </div>
                         </div>
                         <div

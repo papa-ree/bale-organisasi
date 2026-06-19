@@ -23,13 +23,14 @@
                 {{-- Tab Buttons: Horizontal Scroll on Mobile, Wrapped on Desktop --}}
                 <div class="flex sm:justify-center items-center gap-2 sm:gap-3 mb-8 sm:mb-10 overflow-x-auto no-scrollbar pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
                     @foreach($tabs as $tab)
-                        <button @click="activeTab = '{{ Str::slug($tab) }}'"
-                            :class="activeTab === '{{ Str::slug($tab) }}' 
-                                    ? 'bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985] text-white shadow-lg shadow-teal-900/20 ring-2 ring-teal-500/20' 
-                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-teal-50 dark:hover:bg-teal-900/20'"
-                            class="whitespace-nowrap px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold rounded-2xl transition-all duration-300 active:scale-95 shrink-0">
+                        <x-bale-organisasi::button 
+                            @click="activeTab = '{{ Str::slug($tab) }}'"
+                            variant="ghost"
+                            ::class="activeTab === '{{ Str::slug($tab) }}' ? '!bg-teal-600 !text-white !shadow-lg !shadow-teal-600/20' : 'bg-slate-100/50 dark:bg-slate-800/50'"
+                            class="whitespace-nowrap sm:px-8 border-transparent"
+                        >
                             {{ $tab }}
-                        </button>
+                        </x-bale-organisasi::button>
                     @endforeach
                 </div>
 
@@ -90,11 +91,16 @@
                 @if(count($section->buttons()) > 0)
                     <div class="mt-10 sm:mt-14 flex justify-center px-4 sm:px-0">
                         @foreach($section->buttons() as $btn)
-                            <a href="{{ $btn['url'] }}" wire:navigate
-                                class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 text-xs sm:text-sm font-black text-white bg-linear-to-br from-[#0c3a47] via-[#0d6b7a] to-[#075985] rounded-2xl transition-all shadow-xl shadow-teal-900/20 hover:scale-[1.03] active:scale-95 group">
+                            <x-bale-organisasi::button 
+                                :href="$btn['url']" 
+                                variant="primary" 
+                                size="lg" 
+                                wire:navigate
+                                class="w-full sm:w-auto group"
+                            >
                                 {{ $btn['label'] }}
                                 <x-umpak::icon name="move-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                            </a>
+                            </x-bale-organisasi::button>
                         @endforeach
                     </div>
                 @endif

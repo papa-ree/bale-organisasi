@@ -52,11 +52,7 @@ class IkmListContent extends UmpakComponent
             $query->where('tahun', $tahun)->where('triwulan', $triwulan);
         }
 
-        if ($this->kategori !== 'all') {
-            $query->where('kategori', $this->kategori);
-        }
-
-        // Logic for Predikat filtering based on score ranges (example ranges)
+        // Logic for Predikat filtering
         if ($this->predikat !== 'all') {
             if ($this->predikat === 'Sangat Baik') {
                 $query->where('nilai_ikm', '>=', 88.31);
@@ -67,29 +63,37 @@ class IkmListContent extends UmpakComponent
             }
         }
 
-        $this->itemsList = $query->get()->map(function($item) {
+        // Fetch and Map with derived categories
+        $records = $query->get();
+        
+        $this->itemsList = $records->map(function($item) {
             $nilai = (float) $item->nilai_ikm;
             $predikat = 'Sangat Baik';
             if ($nilai < 65.00) $predikat = 'Tidak Baik';
             elseif ($nilai < 76.61) $predikat = 'Cukup';
             elseif ($nilai < 88.31) $predikat = 'Baik';
 
-            // Extract first word as category
-            $firstWord = explode(' ', trim($item->nama_opd))[0];
-            $firstWord = ucwords(strtolower($firstWord));
-
             return [
                 'nama' => $item->nama_opd,
-                'kategori' => $firstWord,
+                'kategori' => $this->determineCategory($item->nama_opd),
                 'sampel' => (int) $item->sampel,
                 'skor' => $nilai,
                 'predikat' => $predikat,
                 'id' => $item->id ?? 0
             ];
-        })->toArray();
+        })
+        ->filter(function($item) {
+            if ($this->kategori === 'all') return true;
+            return $item['kategori'] === $this->kategori;
+        })
+        ->values()
+        ->toArray();
 
-        // Get unique first words for filter chips
-        $categories = collect($this->itemsList)->pluck('kategori')->unique()->sort()->values();
+        // 2. Get unique categories from ALL records in this period (so chips stay consistent)
+        $categories = $records->map(fn($i) => $this->determineCategory($i->nama_opd))
+            ->unique()
+            ->sort()
+            ->values();
 
         // 3. Get available periods for filter
         $periods = DB::table('ikm_records')
@@ -103,6 +107,34 @@ class IkmListContent extends UmpakComponent
             'categories' => $categories,
             'periods' => $periods
         ]);
+    }
+
+    /**
+     * Determine category based on OPD Name rules.
+     * Single Responsibility: Handling categorization logic.
+     */
+    private function determineCategory(?string $nama): string
+    {
+        if (!$nama) return 'Lainnya';
+        
+        $namaLower = strtolower(trim($nama));
+
+        // Rule 1: Satpol PP -> Dinas
+        if (str_contains($namaLower, 'satuan polisi pamong praja')) {
+            return 'Dinas';
+        }
+
+        // Rule 2: Yankes (Prefix keywords)
+        $yankesKeywords = ['instalasi', 'laboratorium', 'puskesmas', 'rumah sakit'];
+        foreach ($yankesKeywords as $keyword) {
+            if (str_starts_with($namaLower, $keyword)) {
+                return 'Yankes';
+            }
+        }
+
+        // Default Rule: First word
+        $firstWord = explode(' ', trim($nama))[0];
+        return ucwords(strtolower($firstWord));
     }
 
     public function resetFilters()

@@ -9,7 +9,7 @@
 @if($filteredPosts->isNotEmpty())
     <div class="{{ $variant === 'grid' ? 'mt-16 max-w-4xl mx-auto px-4 sm:px-0' : '' }}">
         <div class="flex items-center justify-between mb-6">
-            <h2 class="{{ $variant === 'grid' ? 'text-2xl' : 'text-lg' }} font-black text-white flex items-center gap-2">
+            <h2 class="{{ $variant === 'grid' ? 'text-2xl' : 'text-lg' }} font-black text-slate-800 dark:text-white flex items-center gap-2">
                 <span class="w-1.5 h-6 bg-teal-400 rounded-full"></span>
                 {{ $variant === 'grid' ? 'Rekomendasi Berita' : 'Berita Lainnya' }}
             </h2>

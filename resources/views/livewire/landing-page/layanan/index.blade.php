@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {{-- Header Section --}}
             <div class="text-center mb-12" data-aos="fade-up">
-                <span class="text-xs font-semibold ... uppercase tracking-widest">
+                <span class="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400">
                     {{ $section->meta('custom.tagline') }}
                 </span>
 
