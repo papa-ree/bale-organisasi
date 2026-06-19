@@ -28,7 +28,7 @@
                     <a href="{{ route('bale-organisasi.post.show', $item->slug) }}" 
                         class="{{ $variant === 'sidebar' ? 'w-20 h-20 shrink-0 rounded-xl' : 'aspect-video' }} overflow-hidden relative block">
                         @if($item->hasThumbnail())
-                            <img src="{{ $item->thumbnail }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="{{ cdn_asset('bagian-organisasi/thumbnails/' . $item->thumbnail) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         @else
                             <div class="w-full h-full bg-linear-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center">
                                 <x-umpak::icon name="image" class="{{ $variant === 'sidebar' ? 'w-5 h-5' : 'w-8 h-8' }} text-slate-300 dark:text-slate-600" />
