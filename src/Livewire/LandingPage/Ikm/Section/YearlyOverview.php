@@ -11,12 +11,12 @@ class YearlyOverview extends Component
     public function render()
     {
         $currentYear = (int) date('Y');
-        $cacheKey    = 'ikm_yearly_overview_' . $currentYear;
+        $cacheKey = 'ikm_yearly_overview_' . $currentYear;
 
-        $years = Cache::remember($cacheKey, now()->addDay(), function () use ($currentYear) {
-            // Get per-year aggregates with quarterly breakdown for sparklines
+        $years = Cache::remember($cacheKey, now()->addHour(), function () use ($currentYear) {
+            // Get per-year aggregates including current year
             $yearlyData = DB::table('ikm_records')
-                ->where('tahun', '<', $currentYear)
+                ->where('tahun', '<=', $currentYear)
                 ->select(
                     'tahun',
                     DB::raw('AVG(nilai_ikm) as avg_ikm'),
@@ -38,7 +38,7 @@ class YearlyOverview extends Component
                     ->get()
                     ->map(fn($q) => [
                         'label' => 'TW' . $q->triwulan,
-                        'skor'  => round((float) $q->avg_ikm, 2),
+                        'skor' => round((float) $q->avg_ikm, 2),
                     ])
                     ->values()
                     ->toArray();
@@ -46,12 +46,12 @@ class YearlyOverview extends Component
                 $avg = round((float) $row->avg_ikm, 2);
 
                 return [
-                    'tahun'         => $row->tahun,
-                    'avg_ikm'       => $avg,
-                    'total_sampel'  => (int) $row->total_sampel,
+                    'tahun' => $row->tahun,
+                    'avg_ikm' => $avg,
+                    'total_sampel' => (int) $row->total_sampel,
                     'total_periode' => (int) $row->total_periode,
-                    'predikat'      => $this->getPredikat($avg),
-                    'quarterly'     => $quarterly,
+                    'predikat' => $this->getPredikat($avg),
+                    'quarterly' => $quarterly,
                 ];
             })->toArray();
         });
@@ -64,9 +64,12 @@ class YearlyOverview extends Component
     /** Determine predikat label and badge class based on IKM score */
     private function getPredikat(float $skor): array
     {
-        if ($skor >= 88.31) return ['label' => 'Sangat Baik', 'cls' => 'badge-sb', 'color' => 'teal'];
-        if ($skor >= 76.61) return ['label' => 'Baik',        'cls' => 'badge-b',  'color' => 'blue'];
-        if ($skor >= 65.00) return ['label' => 'Cukup',       'cls' => 'badge-c',  'color' => 'amber'];
-        return                     ['label' => 'Tidak Baik',  'cls' => 'badge-kb', 'color' => 'rose'];
+        if ($skor >= 88.31)
+            return ['label' => 'Sangat Baik', 'cls' => 'badge-sb', 'color' => 'teal'];
+        if ($skor >= 76.61)
+            return ['label' => 'Baik', 'cls' => 'badge-b', 'color' => 'blue'];
+        if ($skor >= 65.00)
+            return ['label' => 'Cukup', 'cls' => 'badge-c', 'color' => 'amber'];
+        return ['label' => 'Tidak Baik', 'cls' => 'badge-kb', 'color' => 'rose'];
     }
 }

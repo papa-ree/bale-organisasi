@@ -65,24 +65,24 @@
 
                     const dots = data.map( ( d, i ) =>
                         `<circle cx="${ xP( i ).toFixed( 1 ) }" cy="${ yP( d.skor ).toFixed( 1 ) }" r="5" fill="${ bgSurf }" stroke="${ teal }" stroke-width="2.5"/>
-                                                                     <text x="${ xP( i ).toFixed( 1 ) }" y="${ ( yP( d.skor ) - 9 ).toFixed( 1 ) }" fill="${ teal }" font-size="9" font-weight="800" text-anchor="middle" font-family="Plus Jakarta Sans">${ d.skor.toFixed( 1 ) }</text>`
+                                                                             <text x="${ xP( i ).toFixed( 1 ) }" y="${ ( yP( d.skor ) - 9 ).toFixed( 1 ) }" fill="${ teal }" font-size="9" font-weight="800" text-anchor="middle" font-family="Plus Jakarta Sans">${ d.skor.toFixed( 1 ) }</text>`
                     ).join( '' );
 
                     el.setAttribute( 'viewBox', `0 0 ${ W } ${ H }` );
                     el.setAttribute( 'width', '100%' );
                     el.setAttribute( 'height', H );
                     el.innerHTML = `
-                            <defs>
-                                <linearGradient id="yag" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="${ teal }" stop-opacity="0.2"/>
-                                    <stop offset="100%" stop-color="${ teal }" stop-opacity="0.01"/>
-                                </linearGradient>
-                            </defs>
-                            ${ gridLines }${ xlabels }
-                            <path d="${ areaD }" fill="url(#yag)"/>
-                            <path d="${ lineD }" fill="none" stroke="${ teal }" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            ${ dots }
-                        `;
+                                    <defs>
+                                        <linearGradient id="yag" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="${ teal }" stop-opacity="0.2"/>
+                                            <stop offset="100%" stop-color="${ teal }" stop-opacity="0.01"/>
+                                        </linearGradient>
+                                    </defs>
+                                    ${ gridLines }${ xlabels }
+                                    <path d="${ areaD }" fill="url(#yag)"/>
+                                    <path d="${ lineD }" fill="none" stroke="${ teal }" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    ${ dots }
+                                `;
                 },
 
                 init ()
@@ -119,11 +119,11 @@
                         </div>
 
                         <span class="text-xs font-black px-3 py-1.5 rounded-xl transition-colors" :class="{
-                                    'bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400'   : predikat.color === 'teal',
-                                    'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'   : predikat.color === 'blue',
-                                    'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400': predikat.color === 'amber',
-                                    'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400'   : predikat.color === 'rose',
-                                }" x-text="predikat.label">
+                                            'bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400'   : predikat.color === 'teal',
+                                            'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'   : predikat.color === 'blue',
+                                            'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400': predikat.color === 'amber',
+                                            'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400'   : predikat.color === 'rose',
+                                        }" x-text="predikat.label">
                         </span>
                     </div>
 
@@ -141,7 +141,7 @@
                     </div>
 
                     {{-- Footer Stats --}}
-                    <div class="grid grid-cols-3 gap-3">
+                    <div class="grid grid-cols-2 gap-3">
                         <div class="bg-slate-50 dark:bg-slate-700/30 rounded-xl px-3 py-3 text-center">
                             <p class="text-sm font-black text-teal-600 dark:text-teal-400 tabular-nums leading-tight"
                                 x-text="parseInt(active.total_sampel).toLocaleString('id-ID')"></p>
@@ -151,12 +151,6 @@
                             <p class="text-sm font-black text-teal-600 dark:text-teal-400 tabular-nums leading-tight"
                                 x-text="active.total_periode + ' TW'"></p>
                             <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase mt-1">Periode</p>
-                        </div>
-                        <div class="bg-slate-50 dark:bg-slate-700/30 rounded-xl px-3 py-3 text-center">
-                            <p class="text-sm font-black tabular-nums leading-tight"
-                                :class="active.avg_ikm >= 76.61 ? 'text-teal-600 dark:text-teal-400' : 'text-amber-600'"
-                                x-text="active.avg_ikm.toFixed(1) + '%'"></p>
-                            <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase mt-1">Pencapaian</p>
                         </div>
                     </div>
                 </div>
@@ -178,14 +172,18 @@
                         <button @click="activeYear = year.tahun; $nextTick(() => drawChart())"
                             class="group shrink-0 w-[140px] sm:w-full text-left px-4 py-3 rounded-xl border transition-all duration-300 snap-start"
                             :class="activeYear === year.tahun
-                                        ? 'bg-white dark:bg-slate-800 border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-400 shadow-md ring-1 ring-teal-500/10'
-                                        : 'border-transparent text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700/50 hover:shadow-sm'">
+                                                ? 'bg-white dark:bg-slate-800 border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-400 shadow-md ring-1 ring-teal-500/10'
+                                                : 'border-transparent text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700/50 hover:shadow-sm'">
 
                             <div class="flex items-center gap-2 mb-2">
                                 <span class="w-2 h-2 rounded-full shrink-0 transition-all duration-500"
                                     :class="activeYear === year.tahun ? 'bg-teal-500 scale-110 shadow-[0_0_8px_rgba(20,184,166,0.5)]' : 'bg-slate-300 dark:bg-slate-600 scale-90'">
                                 </span>
                                 <span class="text-sm font-black tracking-tight" x-text="year.tahun"></span>
+
+                                <template x-if="year.tahun == {{ date('Y') }}">
+                                    <span class="text-[8px] font-bold px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-700 animate-pulse">BERJALAN</span>
+                                </template>
                             </div>
 
                             {{-- Skor kecil + badge --}}
@@ -198,11 +196,11 @@
                                 <span
                                     class="text-[9px] font-extrabold px-2 py-0.5 rounded-lg w-fit transition-colors duration-300"
                                     :class="{
-                                                'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300'   : year.predikat.color === 'teal',
-                                                'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300'   : year.predikat.color === 'blue',
-                                                'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300': year.predikat.color === 'amber',
-                                                'bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300'   : year.predikat.color === 'rose',
-                                            }" x-text="year.predikat.label">
+                                                        'bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300'   : year.predikat.color === 'teal',
+                                                        'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300'   : year.predikat.color === 'blue',
+                                                        'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300': year.predikat.color === 'amber',
+                                                        'bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300'   : year.predikat.color === 'rose',
+                                                    }" x-text="year.predikat.label">
                                 </span>
                             </div>
                         </button>
