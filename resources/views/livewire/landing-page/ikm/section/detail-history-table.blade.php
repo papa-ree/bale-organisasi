@@ -4,8 +4,8 @@
 
 <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl shadow-sm overflow-hidden">
 
-    <div class="p-4 sm:p-6 border-b border-slate-100 dark:border-slate-700 flex flex-col gap-1">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Arsip Lengkap</p>
+    <div class="p-5 sm:p-6 border-b border-slate-100 dark:border-slate-700">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1">Arsip Lengkap</p>
         <h3 class="text-base font-black text-slate-800 dark:text-white">Riwayat Semua Periode</h3>
     </div>
 

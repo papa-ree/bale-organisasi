@@ -2,7 +2,7 @@
 {{-- Alpine: unsur (reactive getter array of {label, nilai}) --}}
 
 <div wire:ignore
-    class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-4 sm:p-6 shadow-sm">
+    class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5 sm:p-6 shadow-sm">
 
     {{-- Header --}}
     <div class="flex items-start justify-between mb-5 gap-3 flex-wrap">

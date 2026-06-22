@@ -2,15 +2,15 @@
 {{-- Alpine: drawChart(), chart.tooltip, visibleChartData, activePeriod --}}
 
 <div wire:ignore
-    class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-4 sm:p-6 shadow-sm overflow-hidden w-full max-w-full">
+    class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-5 sm:p-6 shadow-sm">
 
     {{-- Header --}}
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-5 gap-3">
+    <div class="flex items-start justify-between mb-5 gap-3">
         <div>
             <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1">Riwayat Skor</p>
             <h3 class="text-base font-black text-slate-800 dark:text-white">Tren IKM per Triwulan</h3>
         </div>
-        <div class="flex items-center gap-2 text-[10px] text-slate-400 dark:text-slate-500 font-bold">
+        <div class="flex items-center gap-2 text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-1">
             <span class="flex items-center gap-1.5">
                 <svg width="18" height="4" class="inline">
                     <line x1="0" y1="2" x2="18" y2="2" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
