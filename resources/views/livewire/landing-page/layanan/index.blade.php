@@ -32,21 +32,21 @@
                     ])>
 
                         <div @class([
-                            'w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 transition-transform group-hover:scale-110 duration-300',
-                            "bg-{$hoverColor}-50 dark:bg-{$hoverColor}-900/30"
+                            'w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 duration-300',
+                            "bg-{$hoverColor}-50 dark:bg-{$hoverColor}-900/30 text-{$hoverColor}-600 dark:text-{$hoverColor}-400"
                         ])>
-                            {{ $item['icon'] ?? '📊' }}
+                            <x-umpak::icon :name="$item['icon'][0] ?? 'box'" fallback="box" class="w-6 h-6" />
                         </div>
 
                         <h3 @class([
                             'font-bold text-slate-800 dark:text-white text-sm mb-1 transition-colors',
                             "group-hover:text-{$hoverColor}-600 dark:group-hover:text-{$hoverColor}-400"
                         ])>
-                            {{ $item['title'] }}
+                            {{ $item['judul'][0] ?? '' }}
                         </h3>
 
                         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                            {{ $item['description'] }}
+                            {{ $item['deskripsi'][0] ?? '' }}
                         </p>
                     </a>
                 @endforeach
