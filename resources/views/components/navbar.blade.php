@@ -6,7 +6,8 @@
             {{-- Brand --}}
             <div class="flex items-center gap-3">
                 <div class="w-auto h-10 flex items-center justify-center">
-                    <x-umpak::cdn-img path="landing-page/bagorg.png" class="w-auto h-10 object-contain" />
+                    <x-umpak::cdn-img path="{{ cdn_asset('bagian-organisasi/landing-page/bagorg.png') }}"
+                        class="w-auto h-10 object-contain" />
                 </div>
             </div>
 
