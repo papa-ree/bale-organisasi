@@ -7,7 +7,7 @@
             <div class="flex items-center gap-3">
                 <div class="w-auto h-10 flex items-center justify-center">
                     <x-umpak::cdn-img path="{{ cdn_asset('bagian-organisasi/landing-page/bagorg.png') }}"
-                        class="w-auto h-10 object-contain" />
+                        class="w-auto sm:h-10 h-6 object-contain" />
                 </div>
             </div>
 
