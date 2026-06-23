@@ -13,7 +13,7 @@
                 chartData: window.ikmChartData || [],
                 kabStatsMap: window.ikmKabStatsByPeriod || {},
                 activePeriod: initialActivePeriod,
-                visibleCount: 6,
+                visibleCount: 4,
                 chart: { tooltip: null },
 
                 /* ─── Computed ─── */
@@ -187,7 +187,7 @@
                 <div class="flex flex-col-reverse lg:flex-row gap-6 items-start">
 
                     {{-- LEFT: Main Content --}}
-                    <div class="flex-1 min-w-0 space-y-5">
+                    <div class="w-full lg:flex-1 min-w-0 space-y-5">
 
                         {{-- Trend Chart --}}
                         @include('bale-organisasi::livewire.landing-page.ikm.section.detail-trend-chart')
@@ -196,10 +196,10 @@
                         @include('bale-organisasi::livewire.landing-page.ikm.section.detail-unsur-grid')
 
                         {{-- History Table --}}
-                        {{-- @include('bale-organisasi::livewire.landing-page.ikm.section.detail-history-table') --}}
+                        @include('bale-organisasi::livewire.landing-page.ikm.section.detail-history-table')
 
                         {{-- Comparative Matrix --}}
-                        {{-- @include('bale-organisasi::livewire.landing-page.ikm.section.detail-comparative') --}}
+                        @include('bale-organisasi::livewire.landing-page.ikm.section.detail-comparative')
 
                         {{-- Footer Note --}}
                         <p class="text-[10px] text-center italic text-slate-400 dark:text-slate-600 pb-2">

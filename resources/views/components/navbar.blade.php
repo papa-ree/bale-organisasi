@@ -5,14 +5,9 @@
 
             {{-- Brand --}}
             <div class="flex items-center gap-3">
-                <div
-                    class="w-10 h-10 rounded-xl bg-linear-to-br from-teal-500 to-sky-400 flex items-center justify-center text-white font-bold text-sm shadow-sm">
-                    <x-umpak::cdn-img path="shared/logo.png" class="w-7 h-7 object-contain" />
+                <div class="w-auto h-10 flex items-center justify-center">
+                    <x-umpak::cdn-img path="landing-page/bagorg.png" class="w-auto h-10 object-contain" />
                 </div>
-                <span class="font-bold text-slate-800 dark:text-white text-sm leading-tight hidden sm:block">
-                    {{ $umpakOrg->organizationName }}<br />
-                    <span class="text-teal-600 dark:text-teal-400 font-medium text-xs">Setda Kab. Ponorogo</span>
-                </span>
             </div>
 
             {{-- Desktop Nav --}}

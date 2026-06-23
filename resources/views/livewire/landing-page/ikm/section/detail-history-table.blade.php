@@ -9,7 +9,7 @@
         <h3 class="text-base font-black text-slate-800 dark:text-white">Riwayat Semua Periode</h3>
     </div>
 
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto scrollbar-gutter-stable scrollbar-thin scrollbar-track-slate-200 dark:scrollbar-track-slate-800 scrollbar-thumb-teal-500 dark:scrollbar-thumb-teal-600 hover:scrollbar-thumb-teal-600 dark:hover:scrollbar-thumb-teal-500 scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
         <table class="ikm-table">
             <thead>
                 <tr>

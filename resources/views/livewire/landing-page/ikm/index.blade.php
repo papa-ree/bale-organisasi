@@ -49,15 +49,15 @@
 
                     <div class="space-y-4"
                         x-data="{ 
-                                                                                                                                                        allData: {{ $allScoresJson }},
-                                                                                                                                                        visibleData: [],
-                                                                                                                                                        shuffle() {
-                                                                                                                                                            if(!this.allData || this.allData.length === 0) return;
-                                                                                                                                                            this.visibleData = [...this.allData]
-                                                                                                                                                                .sort(() => 0.5 - Math.random())
-                                                                                                                                                                .slice(0, 5);
-                                                                                                                                                        }
-                                                                                                                                                    }"
+                                                                                                                                                                                allData: {{ $allScoresJson }},
+                                                                                                                                                                                visibleData: [],
+                                                                                                                                                                                shuffle() {
+                                                                                                                                                                                    if(!this.allData || this.allData.length === 0) return;
+                                                                                                                                                                                    this.visibleData = [...this.allData]
+                                                                                                                                                                                        .sort(() => 0.5 - Math.random())
+                                                                                                                                                                                        .slice(0, 5);
+                                                                                                                                                                                }
+                                                                                                                                                                            }"
                         x-init="shuffle(); setInterval(() => shuffle(), 8000)">
 
                         <p
@@ -163,12 +163,11 @@
                     <div class="flex items-center justify-between px-1">
                         <p class="text-[10px] text-slate-400 italic">*Data Terkini.</p>
                         @foreach($section->buttons() as $btn)
-                            <a href="{{ $btn['url'] }}" wire:navigate.hover @class([
-                                'inline-flex items-center gap-1.5 text-xs font-bold transition-all',
-                                $btn['class'] ?: 'text-teal-600 dark:text-teal-400 hover:text-teal-700'
-                            ])>
-                                {{ $btn['label'] }} <x-umpak::icon name="arrow-right" class="w-3 h-3" />
-                            </a>
+                            <x-bale-organisasi::button :href="$btn['url']" variant="primary" size="sm" wire:navigate.hover
+                                class="px-5 py-4">
+                                {{ $btn['label'] }}
+                                <x-umpak::icon name="arrow-right" class="w-3.5 h-3.5" />
+                            </x-bale-organisasi::button>
                         @endforeach
                     </div>
                 </div>

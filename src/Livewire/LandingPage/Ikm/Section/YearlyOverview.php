@@ -8,15 +8,21 @@ use Illuminate\Support\Facades\Cache;
 
 class YearlyOverview extends Component
 {
+    /** Pilihan apakah ingin menampilkan tahun berkelan (Current Year) atau tidak */
+    public bool $includeCurrentYear = false;
+
     public function render()
     {
         $currentYear = (int) date('Y');
-        $cacheKey = 'ikm_yearly_overview_' . $currentYear;
+        $maxYear = $this->includeCurrentYear ? $currentYear : $currentYear - 1;
 
-        $years = Cache::remember($cacheKey, now()->addHour(), function () use ($currentYear) {
-            // Get per-year aggregates including current year
+        // Cache key unik berdasarkan parameter inklusi tahun berjalan
+        $cacheKey = 'ikm_yearly_overview_' . $maxYear . '_' . ($this->includeCurrentYear ? 'inc' : 'exc');
+
+        $years = Cache::remember($cacheKey, now()->addHour(), function () use ($maxYear) {
+            // Ambil agregat per tahun, dibatasi maksimal 5 tahun ke belakang
             $yearlyData = DB::table('ikm_records')
-                ->where('tahun', '<=', $currentYear)
+                ->where('tahun', '<=', $maxYear)
                 ->select(
                     'tahun',
                     DB::raw('AVG(nilai_ikm) as avg_ikm'),
@@ -28,7 +34,7 @@ class YearlyOverview extends Component
                 ->limit(5)
                 ->get();
 
-            // For each year, get quarterly scores for sparkline
+            // Untuk setiap tahun, ambil skor per-triwulan untuk grafik sparkline
             return $yearlyData->map(function ($row) {
                 $quarterly = DB::table('ikm_records')
                     ->where('tahun', $row->tahun)
