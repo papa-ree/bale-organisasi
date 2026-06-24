@@ -21,7 +21,7 @@
                     @endphp
 
                     @if ($item->hasChildren())
-                        <div class="relative cursor-pointer" @click="openDropdown({{ $i }})" @click.outside="closeDropdown()">
+                        <div class="relative cursor-pointer" @click="isDropdownOpen({{ $i }}) ? closeDropdown() : openDropdown({{ $i }})" @click.outside="isDropdownOpen({{ $i }}) ? closeDropdown() : null">
                             <button @class([
                                 'flex items-center cursor-pointer gap-1 text-sm transition-colors duration-200 focus:outline-none',
                                 'font-semibold text-teal-600 dark:text-teal-400' => str_starts_with(request()->url(), $item->resolvedUrl),
