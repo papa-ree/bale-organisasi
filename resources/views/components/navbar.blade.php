@@ -123,23 +123,36 @@
                 @endphp
 
                 @if ($item->hasChildren())
-                    <div class="space-y-1">
-                        <div class="px-4 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider">{{ $item->name }}
+                    <div class="space-y-1 overflow-hidden transition-all duration-300">
+                        <button @click="isDropdownOpen({{ $i }}) ? closeDropdown() : openDropdown({{ $i }})"
+                            class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all">
+                            <span>{{ $item->name }}</span>
+                            <x-umpak::icon name="chevron-down" class="w-4 h-4 transition-transform duration-300"
+                                ::class="isDropdownOpen({{ $i }}) ? 'rotate-180 text-teal-600 dark:text-teal-400' : ''" />
+                        </button>
+
+                        <div x-show="isDropdownOpen({{ $i }})" x-cloak
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 -translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0" class="pl-4 space-y-1">
+                            @foreach ($item->children as $child)
+                                @php
+                                    $childInternal = str_starts_with($child->resolvedUrl, '/') || str_contains($child->resolvedUrl, config('app.url'));
+                                    $childAnchor = str_contains($child->resolvedUrl, '#');
+                                    $childNavigate = $childInternal && !$childAnchor;
+                                @endphp
+                                <a href="{{ $child->resolvedUrl }}" @if($childNavigate) wire:navigate.hover @endif
+                                    @click="onLinkClick()"
+                                    class="block px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all">
+                                    {{ $child->name }}
+                                </a>
+                            @endforeach
                         </div>
-                        @foreach ($item->children as $child)
-                            @php
-                                $childInternal = str_starts_with($child->resolvedUrl, '/') || str_contains($child->resolvedUrl, config('app.url'));
-                                $childAnchor = str_contains($child->resolvedUrl, '#');
-                                $childNavigate = $childInternal && !$childAnchor;
-                            @endphp
-                            <a href="{{ $child->resolvedUrl }}" @if($childNavigate) wire:navigate.hover @endif
-                                class="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl">
-                                {{ $child->name }}
-                            </a>
-                        @endforeach
                     </div>
                 @else
-                    <a href="{{ $item->resolvedUrl }}" @if($useNavigate) wire:navigate.hover @endif @class([
+                    <a href="{{ $item->resolvedUrl }}" @if($useNavigate) wire:navigate.hover @endif
+                        @click="onLinkClick()"
+                        @class([
                         'block px-4 py-2.5 text-sm rounded-xl transition-all',
                         'font-semibold text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20' => request()->url() == $item->resolvedUrl,
                         'font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' => request()->url() != $item->resolvedUrl,
@@ -148,7 +161,7 @@
                     </a>
                 @endif
             @endforeach
-            <a href="#kontak"
+            <a href="#kontak" @click="onLinkClick()"
                 class="block px-4 py-3 text-sm font-bold text-white bg-teal-600 hover:bg-teal-700 rounded-xl text-center mt-4 shadow-lg shadow-teal-600/20">
                 Hubungi Kami
             </a>
