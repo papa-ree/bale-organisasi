@@ -66,7 +66,7 @@
         </div>
 
         @if($variant === 'sidebar')
-            <a href="{{ route('bale-organisasi.post.index') }}" 
+            <a href="{{ route('bale-organisasi.post.index') }}" wire:navigate.hover
                 class="mt-6 flex items-center justify-center py-3 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 dark:text-slate-400 hover:border-teal-600 hover:text-teal-600 transition-all">
                 Semua Berita
             </a>

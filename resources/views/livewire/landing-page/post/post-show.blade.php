@@ -17,7 +17,7 @@
         ['label' => 'Beranda', 'url' => '/'],
         ['label' => 'Berita', 'url' => route('bale-organisasi.post.index')],
         ['label' => $post->title],
-    ]" class="mb-6 text-white/60 [&_a]:text-white/60 [&_a:hover]:text-white [&_.current]:text-white" />
+    ]" class="mb-6 text-white/60 [&_ol]:text-white/60 [&_a]:text-white/60 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-white/30" />
             @if($post->categorySlug)
                 <span
                     class="inline-block px-3 py-1 text-[10px] font-bold rounded-lg uppercase tracking-tight bg-white/15 text-white mb-4 backdrop-blur-sm">
