@@ -14,7 +14,7 @@
                 {{ $variant === 'grid' ? 'Rekomendasi Berita' : 'Berita Lainnya' }}
             </h2>
             @if($variant === 'grid')
-                <a href="{{ route('bale-organisasi.post.index') }}" 
+                <a href="{{ route('bale-organisasi.post.index') }}" wire:navigate.hover
                     class="text-sm font-bold text-teal-600 dark:text-teal-400 hover:opacity-80 transition-opacity">
                     Lihat Semua Berita →
                 </a>
@@ -25,7 +25,7 @@
             @foreach($filteredPosts as $item)
                 <article class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden {{ $variant === 'sidebar' ? 'flex items-center gap-4 p-3' : 'flex flex-col h-full' }}">
                     {{-- Thumbnail --}}
-                    <a href="{{ route('bale-organisasi.post.show', $item->slug) }}" 
+                    <a href="{{ route('bale-organisasi.post.show', $item->slug) }}" wire:navigate.hover
                         class="{{ $variant === 'sidebar' ? 'w-20 h-20 shrink-0 rounded-xl' : 'aspect-video' }} overflow-hidden relative block">
                         @if($item->hasThumbnail())
                             <img src="{{ cdn_asset('bagian-organisasi/thumbnails/' . $item->thumbnail) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -46,13 +46,13 @@
                         @endif
                         
                         <h3 class="{{ $variant === 'grid' ? 'text-sm' : 'text-xs' }} font-bold text-slate-800 dark:text-white line-clamp-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors {{ $variant === 'grid' ? 'mb-4 flex-1' : 'mb-1' }}">
-                            <a href="{{ route('bale-organisasi.post.show', $item->slug) }}">
+                            <a href="{{ route('bale-organisasi.post.show', $item->slug) }}" wire:navigate.hover>
                                 {{ $item->title }}
                             </a>
                         </h3>
 
                         @if($variant === 'grid')
-                            <a href="{{ route('bale-organisasi.post.show', $item->slug) }}" 
+                            <a href="{{ route('bale-organisasi.post.show', $item->slug) }}" wire:navigate.hover
                                 class="inline-flex items-center gap-1.5 text-xs font-black text-teal-600 dark:text-teal-400">
                                 Baca Selengkapnya
                                 <x-umpak::icon name="arrow-right" class="w-3 h-3 transition-transform group-hover:translate-x-1" />

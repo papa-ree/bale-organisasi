@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {{-- SEO --}}
-    {{-- <x-seo::seo-meta /> --}}
+    <x-seo::seo-meta />
 
     <title>{{ $title ?? $umpakOrg?->organizationName ?? config('app.name') }}</title>
 
