@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {{-- SEO --}}
-        <x-seo::seo-meta :model="$seoModel ?? null" :defaults="[
+    <x-seo::seo-meta :model="$seoModel ?? null" :defaults="[
         'title' => $title ?? 'Bagian Organisasi Setda Kabupaten Ponorogo',
         'image' => cdn_asset('shared/logo-png.png')
     ]" />
