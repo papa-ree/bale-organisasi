@@ -8,8 +8,11 @@ use Illuminate\Support\Facades\Cache;
 
 class YearlyOverview extends Component
 {
-    /** Pilihan apakah ingin menampilkan tahun berkelan (Current Year) atau tidak */
+    /** Pilihan apakah ingin menampilkan tahun berjalan (Current Year) atau tidak */
     public bool $includeCurrentYear = false;
+
+    /** Maksimal jumlah tahun yang ditampilkan di chart */
+    public int $maxYears = 5;
 
     public function render()
     {
@@ -31,7 +34,7 @@ class YearlyOverview extends Component
                 )
                 ->groupBy('tahun')
                 ->orderByDesc('tahun')
-                ->limit(5)
+                ->limit($this->maxYears)
                 ->get();
 
             // Untuk setiap tahun, ambil skor per-triwulan untuk grafik sparkline
@@ -64,6 +67,7 @@ class YearlyOverview extends Component
 
         return view('bale-organisasi::livewire.landing-page.ikm.section.yearly-overview', [
             'years' => $years,
+            'maxYears' => $this->maxYears,
         ]);
     }
 
