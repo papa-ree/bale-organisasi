@@ -26,7 +26,9 @@ class PostShow extends UmpakComponent
 
         return view('bale-organisasi::livewire.landing-page.post.post-show', [
             'post' => $post
-        ])->title($post->title . ' — Bale Organisasi');
+        ])
+            ->layoutData(['post' => $post])
+            ->title($post->title . ' — Bagian Organisasi');
     }
 
     #[Computed()]
