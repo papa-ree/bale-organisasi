@@ -6,7 +6,7 @@
             {{-- Brand --}}
             <div class="flex items-center gap-3">
                 <div class="w-auto h-10 flex items-center justify-center">
-                    <x-umpak::cdn-img path="{{ cdn_asset('bagian-organisasi/landing-page/bagorg.png') }}"
+                    <x-umpak::cdn-img path="{{ cdn_asset('landing-page/bagorg.png') }}"
                         class="w-auto sm:h-10 h-6 object-contain" />
                 </div>
             </div>
@@ -21,7 +21,9 @@
                     @endphp
 
                     @if ($item->hasChildren())
-                        <div class="relative cursor-pointer" @click="isDropdownOpen({{ $i }}) ? closeDropdown() : openDropdown({{ $i }})" @click.outside="isDropdownOpen({{ $i }}) ? closeDropdown() : null">
+                        <div class="relative cursor-pointer"
+                            @click="isDropdownOpen({{ $i }}) ? closeDropdown() : openDropdown({{ $i }})"
+                            @click.outside="isDropdownOpen({{ $i }}) ? closeDropdown() : null">
                             <button @class([
                                 'flex items-center cursor-pointer gap-1 text-sm transition-colors duration-200 focus:outline-none',
                                 'font-semibold text-teal-600 dark:text-teal-400' => str_starts_with(request()->url(), $item->resolvedUrl),
@@ -131,8 +133,7 @@
                                 ::class="isDropdownOpen({{ $i }}) ? 'rotate-180 text-teal-600 dark:text-teal-400' : ''" />
                         </button>
 
-                        <div x-show="isDropdownOpen({{ $i }})" x-cloak
-                            x-transition:enter="transition ease-out duration-200"
+                        <div x-show="isDropdownOpen({{ $i }})" x-cloak x-transition:enter="transition ease-out duration-200"
                             x-transition:enter-start="opacity-0 -translate-y-2"
                             x-transition:enter-end="opacity-100 translate-y-0" class="pl-4 space-y-1">
                             @foreach ($item->children as $child)
@@ -150,13 +151,12 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ $item->resolvedUrl }}" @if($useNavigate) wire:navigate.hover @endif
-                        @click="onLinkClick()"
+                    <a href="{{ $item->resolvedUrl }}" @if($useNavigate) wire:navigate.hover @endif @click="onLinkClick()"
                         @class([
-                        'block px-4 py-2.5 text-sm rounded-xl transition-all',
-                        'font-semibold text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20' => request()->url() == $item->resolvedUrl,
-                        'font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' => request()->url() != $item->resolvedUrl,
-                    ])>
+                            'block px-4 py-2.5 text-sm rounded-xl transition-all',
+                            'font-semibold text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20' => request()->url() == $item->resolvedUrl,
+                            'font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' => request()->url() != $item->resolvedUrl,
+                        ])>
                         {{ $item->name }}
                     </a>
                 @endif
