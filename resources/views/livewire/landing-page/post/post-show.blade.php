@@ -42,7 +42,7 @@
                 {{-- Thumbnail --}}
                 @if($post->hasThumbnail())
                     <div class="aspect-video overflow-hidden">
-                        <img src="{{ cdn_asset('bagian-organisasi/thumbnails/' . $post->thumbnail) }}"
+                        <img src="{{ $post->thumbnail }}"
                             alt="{{ $post->title }}" class="w-full h-full object-cover">
                     </div>
                 @endif

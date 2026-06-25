@@ -133,7 +133,7 @@
                             {{-- Thumbnail --}}
                             <div class="relative overflow-hidden aspect-video bg-slate-100 dark:bg-slate-700">
                                 @if($post->hasThumbnail())
-                                    <img src="{{ cdn_asset('bagian-organisasi/thumbnails/' . $post->thumbnail) }}"
+                                    <img src="{{ $post->thumbnail }}"
                                         alt="{{ $post->title }}"
                                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                 @else
