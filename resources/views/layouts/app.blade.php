@@ -6,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {{-- SEO --}}
-    <x-seo::seo-meta :model="$seoModel ?? null" :defaults="[
+    <x-seo::seo-meta :model="$seoModel ?? $post ?? $page ?? null" :defaults="[
         'title' => $title ?? 'Bagian Organisasi Setda Kabupaten Ponorogo',
-        'image' => cdn_asset('shared/logo-png.png')
+        'image' => cdn_asset('shared/og-default.png')
     ]" />
-
-    <title>{{ $title ?? $umpakOrg?->organizationName ?? config('app.name') }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
