@@ -1,5 +1,5 @@
 <div x-data="{ 
-    documents: {{ $allDocuments->toJson() }},
+    documents: {!! json_encode($allDocuments, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!},
     search: '',
     category: 'all',
     format: 'all',
@@ -124,7 +124,7 @@
                         <div class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:border-teal-500 hover:shadow-xl transition-all cursor-pointer"
                             @click="openModal(doc)">
                             <div class="flex items-start gap-5">
-                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-[10px] font-black flex-shrink-0"
+                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-[10px] font-black shrink-0"
                                     :class="['pdf','docx'].includes(doc.fmt) ? 'bg-rose-50 text-rose-600' : (doc.fmt === 'xlsx' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-600')"
                                     x-text="doc.fmt.toUpperCase()"></div>
                                 <div class="flex-1 min-w-0">

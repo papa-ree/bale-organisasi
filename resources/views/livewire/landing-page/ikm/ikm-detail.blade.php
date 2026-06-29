@@ -1,8 +1,10 @@
 <div>
     {{-- ══ Data Injection (avoid Blade/JS string conflict in attributes) ══ --}}
+    <script id="ikm-chart-data" type="application/json">{!! $chartJson !!}</script>
+    <script id="ikm-kab-stats-data" type="application/json">{!! $kabStatsJson !!}</script>
     <script>
-        window.ikmChartData = {!! $chartJson !!};
-        window.ikmKabStatsByPeriod = {!! $kabStatsJson !!};
+        window.ikmChartData = JSON.parse(document.getElementById('ikm-chart-data').textContent);
+        window.ikmKabStatsByPeriod = JSON.parse(document.getElementById('ikm-kab-stats-data').textContent);
     </script>
 
     {{-- ══ Alpine Factory Function ══ --}}
