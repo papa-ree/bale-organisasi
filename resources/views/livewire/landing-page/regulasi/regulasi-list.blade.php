@@ -1,9 +1,9 @@
-<div x-data="{ 
+<div x-data='{ 
     documents: {!! json_encode($allDocuments, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!},
-    search: '',
-    category: 'all',
-    format: 'all',
-    year: 'all',
+    search: "",
+    category: "all",
+    format: "all",
+    year: "all",
     expandedId: null, // Melacak ID yang sedang terbuka
     selectedDoc: null,
     
@@ -13,24 +13,27 @@
     
     // 1. Logika Filter & Sort (Berdasarkan updated_at/uploaded)
     get filteredDocuments() {
-        let filtered = this.documents.filter(doc => {
-            const matchSearch = this.search === '' || 
-                doc.title.toLowerCase().includes(this.search.toLowerCase());
-            const matchCategory = this.category === 'all' || doc.cat_id === this.category;
-            const matchFormat = this.format === 'all' || doc.fmt === this.format;
-            const matchYear = this.year === 'all' || doc.tahun.toString() === this.year;
+        var self = this;
+        var filtered = this.documents.filter(function(doc) {
+            var matchSearch = self.search === "" || 
+                doc.title.toLowerCase().includes(self.search.toLowerCase());
+            var matchCategory = self.category === "all" || doc.cat_id === self.category;
+            var matchFormat = self.format === "all" || doc.fmt === self.format;
+            var matchYear = self.year === "all" || doc.tahun.toString() === self.year;
             
             return matchSearch && matchCategory && matchFormat && matchYear;
         });
 
         // Sorting: Terbaru berdasarkan uploaded_at
-        return filtered.sort((a, b) => new Date(b.uploaded) - new Date(a.uploaded));
+        return filtered.sort(function(a, b) {
+            return new Date(b.uploaded) - new Date(a.uploaded);
+        });
     },
 
     // 2. Logika Paginasi
     get paginatedDocuments() {
-        const start = (this.page - 1) * this.perPage;
-        const end = start + this.perPage;
+        var start = (this.page - 1) * this.perPage;
+        var end = start + this.perPage;
         return this.filteredDocuments.slice(start, end);
     },
 
@@ -41,7 +44,7 @@
      toggle(id) {
         this.expandedId = (this.expandedId === id) ? null : id;
     }
-}" x-init="$watch('search', () => page = 1); $watch('category', () => page = 1); $watch('format', () => page = 1); $watch('year', () => page = 1);"
+}' x-init="$watch('search', () => page = 1); $watch('category', () => page = 1); $watch('format', () => page = 1); $watch('year', () => page = 1);"
     x-cloak class="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
 
 
