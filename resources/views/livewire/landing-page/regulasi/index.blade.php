@@ -42,7 +42,7 @@
                             x-transition:enter-end="opacity-100 translate-y-0" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 lg:gap-5">
 
                             @php
-                                $filteredItems = $items->filter(fn($i) => ($i['kategori'][0] ?? '') === $tab)->take(4);
+                                $filteredItems = $items->filter(fn($i) => (($i['kategori'][0] ?? '') ?: 'Umum') === $tab)->take(4);
                             @endphp
 
                             @forelse($filteredItems as $item)

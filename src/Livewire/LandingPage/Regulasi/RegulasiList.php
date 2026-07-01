@@ -70,8 +70,8 @@ class RegulasiList extends UmpakComponent
                 'id' => $item['id'][0] ?? '',
                 'title' => $item['judul'][0] ?? 'Tanpa Judul',
                 'tahun' => (int) ($item['tahun'][0] ?? date('Y')),
-                'cat' => $item['kategori'][0] ?? 'Umum',
-                'cat_id' => $catMapping[$item['kategori'][0] ?? ''] ?? 'lainnya',
+                'cat' => ($item['kategori'][0] ?? '') ?: 'Umum',
+                'cat_id' => $catMapping[($item['kategori'][0] ?? '') ?: 'Umum'] ?? 'lainnya',
                 'desc' => $item['deskripsi'][0] ?? 'Tidak ada deskripsi tambahan.',
                 'fmt' => $ext,
                 'size' => $this->formatBytes($upload['size'] ?? 0),
@@ -80,26 +80,6 @@ class RegulasiList extends UmpakComponent
             ];
         });
     }
-
-    // protected function applyFilters($items)
-    // {
-    //     return $items->when($this->category !== 'all', fn($c) => $c->where('cat_id', $this->category))
-    //         ->when($this->format !== 'all', fn($c) => $c->where('fmt', $this->format))
-    //         ->when($this->year !== 'all', fn($c) => $c->where('tahun', (int) $this->year))
-    //         ->when($this->search, function ($items) {
-    //             $q = strtolower($this->search);
-    //             return $items->filter(fn($item) => str_contains(strtolower($item['title']), $q));
-    //         });
-    // }
-
-    // protected function applySorting($items)
-    // {
-    //     return match ($this->sort) {
-    //         'az' => $items->sortBy('title'),
-    //         'za' => $items->sortByDesc('title'),
-    //         default => $items->sortByDesc('uploaded'),
-    //     };
-    // }
 
     protected function calculateStats($items)
     {
