@@ -19,11 +19,22 @@ class IkmDetail extends UmpakComponent
     {
         $this->instansiId = $id;
 
-        // Default ke triwulan saat ini
+        // Default ke triwulan terakhir yang disetujui
         if (!$this->activePeriod) {
-            $year = date('Y');
-            $triwulan = (int) ceil(date('n') / 3);
-            $this->activePeriod = "{$year}-{$triwulan}";
+            $latestApproved = DB::table('ikm_batches')
+                ->where('status', 'selesai')
+                ->whereNotNull('approved_at')
+                ->orderByDesc('tahun')
+                ->orderByDesc('triwulan')
+                ->first();
+
+            if ($latestApproved) {
+                $this->activePeriod = "{$latestApproved->tahun}-{$latestApproved->triwulan}";
+            } else {
+                $year = date('Y');
+                $triwulan = (int) ceil(date('n') / 3);
+                $this->activePeriod = "{$year}-{$triwulan}";
+            }
         }
     }
 
@@ -86,15 +97,25 @@ class IkmDetail extends UmpakComponent
 
     private function getInstansi()
     {
-        return DB::table('ikm_records')->where('id', $this->instansiId)->first();
+        return DB::table('ikm_records')
+            ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
+            ->where('ikm_batches.status', 'selesai')
+            ->whereNotNull('ikm_batches.approved_at')
+            ->where('ikm_records.id', $this->instansiId)
+            ->select('ikm_records.*')
+            ->first();
     }
 
     private function getHistori(string $namaOpd)
     {
         return DB::table('ikm_records')
-            ->where('nama_opd', $namaOpd)
-            ->orderBy('tahun')
-            ->orderBy('triwulan')
+            ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
+            ->where('ikm_batches.status', 'selesai')
+            ->whereNotNull('ikm_batches.approved_at')
+            ->where('ikm_records.nama_opd', $namaOpd)
+            ->select('ikm_records.*')
+            ->orderBy('ikm_records.tahun')
+            ->orderBy('ikm_records.triwulan')
             ->get();
     }
 
@@ -104,9 +125,12 @@ class IkmDetail extends UmpakComponent
 
         return Cache::remember($cacheKey, now()->addHours(24), function () use ($tahun, $triwulan) {
             $allRecords = DB::table('ikm_records')
-                ->where('tahun', $tahun)
-                ->where('triwulan', $triwulan)
-                ->select('nama_opd', 'nilai_ikm')
+                ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
+                ->where('ikm_batches.status', 'selesai')
+                ->whereNotNull('ikm_batches.approved_at')
+                ->where('ikm_records.tahun', $tahun)
+                ->where('ikm_records.triwulan', $triwulan)
+                ->select('ikm_records.nama_opd', 'ikm_records.nilai_ikm')
                 ->get();
 
             return [

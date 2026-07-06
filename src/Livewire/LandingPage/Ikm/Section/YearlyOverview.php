@@ -23,27 +23,33 @@ class YearlyOverview extends Component
         $cacheKey = 'ikm_yearly_overview_' . $maxYear . '_' . ($this->includeCurrentYear ? 'inc' : 'exc');
 
         $years = Cache::remember($cacheKey, now()->addHour(), function () use ($maxYear) {
-            // Ambil agregat per tahun, dibatasi maksimal 5 tahun ke belakang
+            // Ambil agregat per tahun, dibatasi maksimal 5 tahun ke belakang (only approved batches)
             $yearlyData = DB::table('ikm_records')
-                ->where('tahun', '<=', $maxYear)
+                ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
+                ->where('ikm_batches.status', 'selesai')
+                ->whereNotNull('ikm_batches.approved_at')
+                ->where('ikm_records.tahun', '<=', $maxYear)
                 ->select(
-                    'tahun',
-                    DB::raw('AVG(nilai_ikm) as avg_ikm'),
-                    DB::raw('SUM(sampel) as total_sampel'),
-                    DB::raw('COUNT(DISTINCT CONCAT(tahun, "-", triwulan)) as total_periode')
+                    'ikm_records.tahun',
+                    DB::raw('AVG(ikm_records.nilai_ikm) as avg_ikm'),
+                    DB::raw('SUM(ikm_records.sampel) as total_sampel'),
+                    DB::raw('COUNT(DISTINCT CONCAT(ikm_records.tahun, "-", ikm_records.triwulan)) as total_periode')
                 )
-                ->groupBy('tahun')
-                ->orderByDesc('tahun')
+                ->groupBy('ikm_records.tahun')
+                ->orderByDesc('ikm_records.tahun')
                 ->limit($this->maxYears)
                 ->get();
 
-            // Untuk setiap tahun, ambil skor per-triwulan untuk grafik sparkline
+            // Untuk setiap tahun, ambil skor per-triwulan untuk grafik sparkline (only approved batches)
             return $yearlyData->map(function ($row) {
                 $quarterly = DB::table('ikm_records')
-                    ->where('tahun', $row->tahun)
-                    ->select('triwulan', DB::raw('AVG(nilai_ikm) as avg_ikm'))
-                    ->groupBy('triwulan')
-                    ->orderBy('triwulan')
+                    ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
+                    ->where('ikm_batches.status', 'selesai')
+                    ->whereNotNull('ikm_batches.approved_at')
+                    ->where('ikm_records.tahun', $row->tahun)
+                    ->select('ikm_records.triwulan', DB::raw('AVG(ikm_records.nilai_ikm) as avg_ikm'))
+                    ->groupBy('ikm_records.triwulan')
+                    ->orderBy('ikm_records.triwulan')
                     ->get()
                     ->map(fn($q) => [
                         'label' => 'TW' . $q->triwulan,

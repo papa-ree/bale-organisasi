@@ -31,35 +31,50 @@ class IkmListContent extends UmpakComponent
     public function mount()
     {
         if (!$this->period || $this->period === 'all') {
-            $year = date('Y');
-            $month = date('n');
-            $triwulan = ceil($month / 3);
-            $this->period = "{$year}-{$triwulan}";
+            $latestApproved = DB::table('ikm_batches')
+                ->where('status', 'selesai')
+                ->whereNotNull('approved_at')
+                ->orderByDesc('tahun')
+                ->orderByDesc('triwulan')
+                ->first();
+
+            if ($latestApproved) {
+                $this->period = "{$latestApproved->tahun}-{$latestApproved->triwulan}";
+            } else {
+                $year = date('Y');
+                $month = date('n');
+                $triwulan = ceil($month / 3);
+                $this->period = "{$year}-{$triwulan}";
+            }
         }
     }
 
     public function render()
     {
-        // 1. Get List Data with filters
-        $query = DB::table('ikm_records');
+        // 1. Get List Data with filters (only approved batches)
+        $query = DB::table('ikm_records')
+            ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
+            ->where('ikm_batches.status', 'selesai')
+            ->whereNotNull('ikm_batches.approved_at')
+            ->select('ikm_records.*');
 
         if ($this->search) {
-            $query->where('nama_opd', 'like', '%' . $this->search . '%');
+            $query->where('ikm_records.nama_opd', 'like', '%' . $this->search . '%');
         }
 
         if ($this->period !== 'all') {
             [$tahun, $triwulan] = explode('-', $this->period);
-            $query->where('tahun', $tahun)->where('triwulan', $triwulan);
+            $query->where('ikm_records.tahun', $tahun)->where('ikm_records.triwulan', $triwulan);
         }
 
         // Logic for Predikat filtering
         if ($this->predikat !== 'all') {
             if ($this->predikat === 'Sangat Baik') {
-                $query->where('nilai_ikm', '>=', 88.31);
+                $query->where('ikm_records.nilai_ikm', '>=', 88.31);
             } elseif ($this->predikat === 'Baik') {
-                $query->whereBetween('nilai_ikm', [76.61, 88.30]);
+                $query->whereBetween('ikm_records.nilai_ikm', [76.61, 88.30]);
             } elseif ($this->predikat === 'Cukup') {
-                $query->whereBetween('nilai_ikm', [65.00, 76.60]);
+                $query->whereBetween('ikm_records.nilai_ikm', [65.00, 76.60]);
             }
         }
 
@@ -95,12 +110,15 @@ class IkmListContent extends UmpakComponent
             ->sort()
             ->values();
 
-        // 3. Get available periods for filter
+        // 3. Get available periods for filter (only approved batches)
         $periods = DB::table('ikm_records')
-            ->select('tahun', 'triwulan')
+            ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
+            ->where('ikm_batches.status', 'selesai')
+            ->whereNotNull('ikm_batches.approved_at')
+            ->select('ikm_records.tahun', 'ikm_records.triwulan')
             ->distinct()
-            ->orderByDesc('tahun')
-            ->orderByDesc('triwulan')
+            ->orderByDesc('ikm_records.tahun')
+            ->orderByDesc('ikm_records.triwulan')
             ->get();
 
         return view('bale-organisasi::livewire.landing-page.ikm.section.ikm-list-content', [

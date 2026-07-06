@@ -1,22 +1,17 @@
 @if($section)
-    @php
-        $tabs = $section->meta('custom.tabs', []);
-        $items = collect($section->items);
-    @endphp
-
     <section id="regulasi" class="py-12 sm:py-20 bg-white dark:bg-slate-900 transition-colors duration-300"
         x-data="{ activeTab: '{{ Str::slug($tabs[0] ?? '') }}' }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {{-- Header --}}
             <div class="text-center mb-8 sm:mb-12">
-                @if($section->meta('custom.tagline'))
+                @if($tagline)
                     <span class="text-[10px] sm:text-xs font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-widest bg-teal-50 dark:bg-teal-900/30 px-3 py-1 rounded-full">
-                        {{ $section->meta('custom.tagline') }}
+                        {{ $tagline }}
                     </span>
                 @endif
-                <h2 class="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white mt-3 sm:mt-4">{{ $section->meta('title') }}</h2>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white mt-3 sm:mt-4">{{ $title }}</h2>
                 <p class="text-slate-500 dark:text-slate-400 mt-3 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed px-2">
-                    {{ $section->meta('subtitle') }}</p>
+                    {{ $subtitle }}</p>
             </div>
 
             <div>
@@ -27,7 +22,7 @@
                             @click="activeTab = '{{ Str::slug($tab) }}'"
                             variant="ghost"
                             ::class="activeTab === '{{ Str::slug($tab) }}' ? '!bg-teal-600 !text-white !shadow-lg !shadow-teal-600/20' : 'bg-slate-100/50 dark:bg-slate-800/50'"
-                            class="whitespace-nowrap sm:px-8 border-transparent"
+                            class="whitespace-nowrap sm:px-8 border-transparent cursor-pointer"
                         >
                             {{ $tab }}
                         </x-bale-organisasi::button>
@@ -42,16 +37,16 @@
                             x-transition:enter-end="opacity-100 translate-y-0" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 lg:gap-5">
 
                             @php
-                                $filteredItems = $items->filter(fn($i) => (($i['kategori'][0] ?? '') ?: 'Umum') === $tab)->take(4);
+                                $filteredItems = $groupedItems[$tab] ?? [];
                             @endphp
 
                             @forelse($filteredItems as $item)
                                 @php
-                                    $judul = $item['judul'][0] ?? 'Dokumen Tanpa Judul';
-                                    $icon = $item['icon'][0] ?? 'file-text';
-                                    $desc = $item['deskripsi'][0] ?? '';
-                                    $tahun = $item['tahun'][0] ?? '';
-                                    $downloadUrl = $item['uploads'][0]['url'] ?? $item['url'][0] ?? '#';
+                                    $judul = $item['judul'];
+                                    $icon = $item['icon'];
+                                    $desc = $item['deskripsi'];
+                                    $tahun = $item['tahun'];
+                                    $downloadUrl = $item['download_url'];
                                 @endphp
                                 <div
                                     class="group flex items-center gap-3 sm:gap-5 p-4 sm:p-5 bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 rounded-[24px] sm:rounded-3xl hover:shadow-2xl hover:shadow-teal-900/5 hover:-translate-y-1 transition-all duration-500 hover:border-teal-500/30">
@@ -88,9 +83,9 @@
                 </div>
 
                 {{-- Footer Buttons --}}
-                @if(count($section->buttons()) > 0)
+                @if(count($buttons) > 0)
                     <div class="mt-10 sm:mt-14 flex justify-center px-4 sm:px-0">
-                        @foreach($section->buttons() as $btn)
+                        @foreach($buttons as $btn)
                             <x-bale-organisasi::button 
                                 :href="$btn['url']" 
                                 variant="primary" 

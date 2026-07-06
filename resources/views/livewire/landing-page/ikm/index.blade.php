@@ -49,15 +49,15 @@
 
                     <div class="space-y-4"
                         x-data="{ 
-                                                                                                                                                                                allData: {{ $allScoresJson }},
-                                                                                                                                                                                visibleData: [],
-                                                                                                                                                                                shuffle() {
-                                                                                                                                                                                    if(!this.allData || this.allData.length === 0) return;
-                                                                                                                                                                                    this.visibleData = [...this.allData]
-                                                                                                                                                                                        .sort(() => 0.5 - Math.random())
-                                                                                                                                                                                        .slice(0, 5);
-                                                                                                                                                                                }
-                                                                                                                                                                            }"
+                                                                                                                                                                                        allData: {{ $allScoresJson }},
+                                                                                                                                                                                        visibleData: [],
+                                                                                                                                                                                        shuffle() {
+                                                                                                                                                                                            if(!this.allData || this.allData.length === 0) return;
+                                                                                                                                                                                            this.visibleData = [...this.allData]
+                                                                                                                                                                                                .sort(() => 0.5 - Math.random())
+                                                                                                                                                                                                .slice(0, 5);
+                                                                                                                                                                                        }
+                                                                                                                                                                                    }"
                         x-init="shuffle(); setInterval(() => shuffle(), 8000)">
 
                         <p
@@ -146,7 +146,7 @@
                                             ])>{{ number_format($u['nilai'], 2) }}</td>
                                             <td class="px-5 py-3 text-center">
                                                 <span @class([
-                                                    'px-2 py-0.5 rounded-md text-[10px] font-black',
+                                                    'px-2 py-0.5 rounded-md text-[10px]',
                                                     'bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400' => $u['nilai'] >= 3.2,
                                                     'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' => $u['nilai'] < 3.2,
                                                 ])>

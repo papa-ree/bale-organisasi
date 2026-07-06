@@ -13,9 +13,12 @@ class UnitScores extends Component
     public function render()
     {
         $scores = DB::table('ikm_records')
-            ->where('tahun', $this->tahun)
-            ->where('triwulan', $this->triwulan)
-            ->select('nama_opd', 'nilai_ikm')
+            ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
+            ->where('ikm_batches.status', 'selesai')
+            ->whereNotNull('ikm_batches.approved_at')
+            ->where('ikm_records.tahun', $this->tahun)
+            ->where('ikm_records.triwulan', $this->triwulan)
+            ->select('ikm_records.nama_opd', 'ikm_records.nilai_ikm')
             ->inRandomOrder()
             ->limit(5)
             ->get();
