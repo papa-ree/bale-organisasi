@@ -43,7 +43,6 @@
                             @forelse($filteredItems as $item)
                                 @php
                                     $judul = $item['judul'];
-                                    $icon = $item['icon'];
                                     $desc = $item['deskripsi'];
                                     $tahun = $item['tahun'];
                                     $downloadUrl = $item['download_url'];

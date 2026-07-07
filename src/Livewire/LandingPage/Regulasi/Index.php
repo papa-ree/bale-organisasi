@@ -49,7 +49,6 @@ class Index extends UmpakComponent
                 foreach ($filtered as $item) {
                     $formattedItems[] = [
                         'judul' => $item['judul'][0] ?? 'Dokumen Tanpa Judul',
-                        'icon' => $item['icon'][0] ?? 'file-text',
                         'deskripsi' => $item['deskripsi'][0] ?? '',
                         'tahun' => $item['tahun'][0] ?? '',
                         'download_url' => $item['uploads'][0]['url'] ?? $item['url'][0] ?? '#',
