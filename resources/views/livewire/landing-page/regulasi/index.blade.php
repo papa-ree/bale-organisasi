@@ -46,12 +46,13 @@
                                     $desc = $item['deskripsi'];
                                     $tahun = $item['tahun'];
                                     $downloadUrl = $item['download_url'];
+                                    $itemIcon = $item['icon'] ?? 'file-text';
                                 @endphp
                                 <div
                                     class="group flex items-center gap-3 sm:gap-5 p-4 sm:p-5 bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 rounded-[24px] sm:rounded-3xl hover:shadow-2xl hover:shadow-teal-900/5 hover:-translate-y-1 transition-all duration-500 hover:border-teal-500/30">
                                     <div
                                         class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center text-teal-600 dark:text-teal-400 shrink-0 group-hover:bg-linear-to-br group-hover:from-[#0c3a47] group-hover:to-[#075985] group-hover:text-white transition-all duration-500 shadow-sm border border-slate-100 dark:border-slate-700/50">
-                                        <x-umpak::icon :name="$icon" class="w-5 h-5 sm:w-6 sm:h-6" />
+                                        <x-umpak::icon :name="$itemIcon" class="w-5 h-5 sm:w-6 sm:h-6" />
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <div class="mb-1">
