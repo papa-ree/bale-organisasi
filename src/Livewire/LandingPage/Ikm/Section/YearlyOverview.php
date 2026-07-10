@@ -28,6 +28,8 @@ class YearlyOverview extends Component
                 ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
                 ->where('ikm_batches.status', 'selesai')
                 ->whereNotNull('ikm_batches.approved_at')
+                ->whereNull('ikm_batches.deleted_at')
+                ->whereNull('ikm_records.deleted_at')
                 ->where('ikm_records.tahun', '<=', $maxYear)
                 ->select(
                     'ikm_records.tahun',
@@ -46,6 +48,8 @@ class YearlyOverview extends Component
                     ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
                     ->where('ikm_batches.status', 'selesai')
                     ->whereNotNull('ikm_batches.approved_at')
+                    ->whereNull('ikm_batches.deleted_at')
+                    ->whereNull('ikm_records.deleted_at')
                     ->where('ikm_records.tahun', $row->tahun)
                     ->select('ikm_records.triwulan', DB::raw('AVG(ikm_records.nilai_ikm) as avg_ikm'))
                     ->groupBy('ikm_records.triwulan')

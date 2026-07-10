@@ -34,6 +34,7 @@ class IkmListContent extends UmpakComponent
             $latestApproved = DB::table('ikm_batches')
                 ->where('status', 'selesai')
                 ->whereNotNull('approved_at')
+                ->whereNull('deleted_at')
                 ->orderByDesc('tahun')
                 ->orderByDesc('triwulan')
                 ->first();
@@ -56,6 +57,8 @@ class IkmListContent extends UmpakComponent
             ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
             ->where('ikm_batches.status', 'selesai')
             ->whereNotNull('ikm_batches.approved_at')
+            ->whereNull('ikm_batches.deleted_at')
+            ->whereNull('ikm_records.deleted_at')
             ->select('ikm_records.*');
 
         if ($this->search) {
@@ -115,6 +118,8 @@ class IkmListContent extends UmpakComponent
             ->join('ikm_batches', 'ikm_records.ikm_batch_id', '=', 'ikm_batches.id')
             ->where('ikm_batches.status', 'selesai')
             ->whereNotNull('ikm_batches.approved_at')
+            ->whereNull('ikm_batches.deleted_at')
+            ->whereNull('ikm_records.deleted_at')
             ->select('ikm_records.tahun', 'ikm_records.triwulan')
             ->distinct()
             ->orderByDesc('ikm_records.tahun')
