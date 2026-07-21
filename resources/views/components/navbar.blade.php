@@ -8,10 +8,11 @@
 
             {{-- Brand --}}
             <div class="flex items-center gap-3">
-                <div class="w-auto h-10 flex items-center justify-center">
+                <a href="{{ route('bale-organisasi.home') }}" wire:navigate.hover
+                    class="w-auto h-10 flex items-center justify-center">
                     <x-umpak::cdn-img path="{{ cdn_asset('landing-page/bagorg.png') }}"
                         class="w-auto sm:h-10 h-6 object-contain" />
-                </div>
+                </a>
             </div>
 
             {{-- Desktop Nav --}}
