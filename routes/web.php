@@ -11,7 +11,7 @@ use Bale\BaleOrganisasi\Livewire\LandingPage\Regulasi\RegulasiList;
 
 // Landing Page Routes
 Route::middleware(['web'])->group(function () {
-    Route::get('/', Index::class)->name('bale-organisasi.home');
+    Route::get('/', Index::class)->name('index');
 
     Route::prefix('berita')->name('bale-organisasi.post.')->group(function () {
         Route::get('/', PostList::class)->name('index');
