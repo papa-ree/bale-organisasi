@@ -6,7 +6,7 @@ use Bale\Umpak\Livewire\UmpakComponent;
 use Livewire\Attributes\{Computed, Layout, Title, Url};
 
 #[Layout('bale-organisasi::layouts.app')]
-#[Title('Berita & Informasi — Bale Organisasi')]
+#[Title('Berita & Informasi — Bagian Organisasi Setda Kab. Ponorogo')]
 class PostList extends UmpakComponent
 {
     public int $amount = 9;

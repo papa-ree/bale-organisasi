@@ -9,7 +9,7 @@ use Livewire\Attributes\Title;
 class IkmList extends UmpakComponent
 {
     #[Layout('bale-organisasi::layouts.app')]
-    #[Title('Indeks Kepuasan Masyarakat - Bale Organisasi')]
+    #[Title('Indeks Kepuasan Masyarakat - Bagian Organisasi Setda Kab. Ponorogo')]
     public function render()
     {
         return view('bale-organisasi::livewire.landing-page.ikm.ikm-list');

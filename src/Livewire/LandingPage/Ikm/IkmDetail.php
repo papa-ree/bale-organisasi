@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
 #[Layout('bale-organisasi::layouts.app')]
-#[Title('Indeks Kepuasan Masyarakat - Bale Organisasi')]
+#[Title('Indeks Kepuasan Masyarakat - Bagian Organisasi Setda Kab. Ponorogo')]
 class IkmDetail extends UmpakComponent
 {
     public $instansiId = 0;
@@ -179,7 +179,8 @@ class IkmDetail extends UmpakComponent
 
     private function getUnsurBreakdown($record): array
     {
-        if (!$record) return [];
+        if (!$record)
+            return [];
 
         $labels = $this->getUnsurLabels();
         $breakdown = [];
@@ -221,9 +222,15 @@ class IkmDetail extends UmpakComponent
     private function getUnsurLabels(): array
     {
         return [
-            'Persyaratan', 'Sistem/Mekanisme', 'Waktu Penyelesaian',
-            'Biaya/Tarif', 'Produk Layanan', 'Kompetensi Pelaksana',
-            'Perilaku Pelaksana', 'Sarana Prasarana', 'Penanganan Pengaduan',
+            'Persyaratan',
+            'Sistem/Mekanisme',
+            'Waktu Penyelesaian',
+            'Biaya/Tarif',
+            'Produk Layanan',
+            'Kompetensi Pelaksana',
+            'Perilaku Pelaksana',
+            'Sarana Prasarana',
+            'Penanganan Pengaduan',
         ];
     }
 
@@ -237,9 +244,12 @@ class IkmDetail extends UmpakComponent
 
     public function getPredikat(float $skor): array
     {
-        if ($skor >= 88.31) return ['label' => 'Sangat Baik', 'class' => 'badge-sb'];
-        if ($skor >= 76.61) return ['label' => 'Baik', 'class' => 'badge-b'];
-        if ($skor >= 65.00) return ['label' => 'Cukup', 'class' => 'badge-c'];
+        if ($skor >= 88.31)
+            return ['label' => 'Sangat Baik', 'class' => 'badge-sb'];
+        if ($skor >= 76.61)
+            return ['label' => 'Baik', 'class' => 'badge-b'];
+        if ($skor >= 65.00)
+            return ['label' => 'Cukup', 'class' => 'badge-c'];
         return ['label' => 'Tidak Baik', 'class' => 'badge-kb'];
     }
 }

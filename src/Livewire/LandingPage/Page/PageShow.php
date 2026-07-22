@@ -11,7 +11,7 @@ class PageShow extends UmpakComponent
 
     public function mount(string $slug): void
     {
-        
+
         $this->slug = $slug;
     }
 
@@ -20,10 +20,11 @@ class PageShow extends UmpakComponent
     {
         $page = $this->page($this->slug);
 
-        if (! $page) abort(404);
+        if (!$page)
+            abort(404);
 
         return view('bale-organisasi::livewire.landing-page.page.page-show', [
             'page' => $page
-        ])->title($page->title . ' — Bale Organisasi');
+        ])->title($page->title . ' — Bagian Organisasi Setda Kab. Ponorogo');
     }
 }

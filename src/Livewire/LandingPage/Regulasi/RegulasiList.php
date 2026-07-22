@@ -15,7 +15,7 @@ class RegulasiList extends UmpakComponent
     use WithPagination;
 
     #[Layout('bale-organisasi::layouts.app')]
-    #[Title('Dokumen & Regulasi - Bale Organisasi')]
+    #[Title('Dokumen & Regulasi - Bagian Organisasi Setda Kab. Ponorogo')]
 
     #[Url(as: 'q')] public string $search = '';
     #[Url(as: 'kategori')] public string $category = 'all';
@@ -184,7 +184,7 @@ class RegulasiList extends UmpakComponent
             if (!empty($fileType) && $fileType !== 'file-text') {
                 $ext = strtolower($fileType);
             }
-            
+
             if (empty($ext) || $ext === 'file') {
                 $checkPath = !empty($originalName) ? $originalName : $downloadUrl;
                 if (!empty($checkPath) && $checkPath !== '#') {

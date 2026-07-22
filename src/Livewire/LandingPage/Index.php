@@ -9,7 +9,7 @@ use Livewire\Attributes\Title;
 class Index extends UmpakComponent
 {
     #[Layout('bale-organisasi::layouts.app')]
-    #[Title('Bale Organisasi')]
+    #[Title('Bagian Organisasi Setda Kab. Ponorogo')]
     public function render()
     {
         return view('bale-organisasi::livewire.landing-page.index');
